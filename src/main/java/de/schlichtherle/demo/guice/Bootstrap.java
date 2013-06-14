@@ -5,10 +5,10 @@
 package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
-import com.google.inject.binder.LinkedBindingBuilder;
+import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.inClass;
 import de.schlichtherle.demo.guice.printer.*;
-import java.io.PrintStream;
+import java.io.*;
 import java.lang.annotation.Annotation;
 import java.util.concurrent.Callable;
 
@@ -20,20 +20,54 @@ import java.util.concurrent.Callable;
  */
 public final class Bootstrap implements Callable<Void> {
 
-    private final Injector injector = Guice.createInjector(module());
+    private final Injector injector = Guice.createInjector(
+            helloWorldJobModule(),
+            teePrinterModule(),
+            filePrinterModule(named("primary"), new File("print.log")),
+            standardPrinterModule(named("secondary"), System.out));
 
-    private static Module module() {
+    private static Module helloWorldJobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.class).to(BanneredPrinter.class);
-                bind(Printer.class, inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
-                bind(Printer.class, inClass(CheckedPrinter.class)).to(StandardPrinter.class);
-                bind(PrintStream.class, inClass(StandardPrinter.class)).toInstance(System.out);
                 bind(Printer.Job.class).to(HelloWorldJob.class);
             }
+        };
+    }
 
-            <T> LinkedBindingBuilder<T> bind(Class<T> clazz, Annotation qualifier) {
-                return bind(Key.get(clazz, qualifier));
+    private static Module teePrinterModule() {
+        return new AbstractModule() {
+            @Override protected void configure() {
+                bind(Printer.class).to(TeePrinter.class);
+            }
+        };
+    }
+
+    private static Module filePrinterModule(
+            final Annotation annotation,
+            final File file) {
+        return new PrivateModule() {
+            @Override protected void configure() {
+                expose(Printer.class).annotatedWith(annotation);
+                bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
+                bind(Printer.class).annotatedWith(inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
+                bind(Printer.class).annotatedWith(inClass(CheckedPrinter.class)).to(FilePrinter.class);
+                bind(File.class).annotatedWith(inClass(FilePrinter.class)).toInstance(file);
+                //bindConstant().annotatedWith(named("append")).to(true);
+                bind(Boolean.class).annotatedWith(named("append")).toInstance(Boolean.TRUE);
+            }
+        };
+    }
+
+    private static Module standardPrinterModule(
+            final Annotation annotation,
+            final PrintStream out) {
+        return new PrivateModule() {
+            @Override protected void configure() {
+                expose(Printer.class).annotatedWith(annotation);
+                bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
+                bind(Printer.class).annotatedWith(inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
+                bind(Printer.class).annotatedWith(inClass(CheckedPrinter.class)).to(StandardPrinter.class);
+                bind(PrintStream.class).annotatedWith(inClass(StandardPrinter.class)).toInstance(out);
             }
         };
     }
