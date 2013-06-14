@@ -19,8 +19,7 @@ Change to the repository directory and run:
 
 ## Running
 
-This project creates a standalone JAR.
-After building, you can run it like this:
+After building, you can run the standalone JAR like this:
 
     java -jar target/guice-demo-*-shaded.jar
 
