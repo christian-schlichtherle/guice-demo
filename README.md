@@ -15,13 +15,13 @@ for printing "Hello world!" to a decorated printer.
 You need Java SE 6 and Apache Maven 3.0.4 or higher installed.
 Change to the repository directory and run:
 
-    mvn clean install
+    $ mvn clean install
 
 ## Running
 
 After building, you can run the standalone JAR like this:
 
-    java -jar target/guice-demo-*-shaded.jar
+    $ java -jar target/guice-demo-*-shaded.jar
 
 The output should be:
 
