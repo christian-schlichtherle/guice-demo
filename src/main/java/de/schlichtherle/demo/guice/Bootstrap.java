@@ -52,8 +52,7 @@ public final class Bootstrap implements Callable<Void> {
                 bind(Printer.class).annotatedWith(inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
                 bind(Printer.class).annotatedWith(inClass(CheckedPrinter.class)).to(FilePrinter.class);
                 bind(File.class).annotatedWith(inClass(FilePrinter.class)).toInstance(file);
-                //bindConstant().annotatedWith(named("append")).to(true);
-                bind(Boolean.class).annotatedWith(named("append")).toInstance(Boolean.TRUE);
+                bindConstant().annotatedWith(named("append")).to(true);
             }
         };
     }
