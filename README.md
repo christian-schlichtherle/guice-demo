@@ -28,3 +28,8 @@ The output should be:
     ---------- BEGIN PRINT ----------
     Hello world!
     ----------  END PRINT  ----------
+
+## License
+
+This demo project is covered by the
+[Eclipse Software License, Version 1.0](http://www.eclipse.org/legal/epl-v10.html).
