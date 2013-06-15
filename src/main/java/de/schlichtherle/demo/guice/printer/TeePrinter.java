@@ -1,6 +1,6 @@
 package de.schlichtherle.demo.guice.printer;
 
-import de.schlichtherle.demo.guice.util.Objects;
+import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.io.IOException;
 import javax.inject.*;
 
@@ -16,8 +16,8 @@ public final class TeePrinter implements Printer {
     public @Inject TeePrinter(
             final @Named("primary") Printer primary,
             final @Named("secondary") Printer secondary) {
-        this.primary = Objects.requireNonNull(primary);
-        this.secondary = Objects.requireNonNull(secondary);
+        this.primary = requireNonNull(primary);
+        this.secondary = requireNonNull(secondary);
     }
 
     @Override public void print(final Job job) throws IOException {
