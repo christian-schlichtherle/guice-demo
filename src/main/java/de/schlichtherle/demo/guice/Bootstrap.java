@@ -6,7 +6,7 @@ package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
-import static de.schlichtherle.demo.guice.inject.Contexts.inClass;
+import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
@@ -49,9 +49,9 @@ public final class Bootstrap implements Callable<Void> {
             @Override protected void configure() {
                 expose(Printer.class).annotatedWith(annotation);
                 bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
-                bind(Printer.class).annotatedWith(inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
-                bind(Printer.class).annotatedWith(inClass(CheckedPrinter.class)).to(FilePrinter.class);
-                bind(File.class).annotatedWith(inClass(FilePrinter.class)).toInstance(file);
+                bind(Printer.class).annotatedWith(context(BanneredPrinter.class)).to(CheckedPrinter.class);
+                bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(FilePrinter.class);
+                bind(File.class).annotatedWith(context(FilePrinter.class)).toInstance(file);
                 bindConstant().annotatedWith(named("append")).to(true);
             }
         };
@@ -64,9 +64,9 @@ public final class Bootstrap implements Callable<Void> {
             @Override protected void configure() {
                 expose(Printer.class).annotatedWith(annotation);
                 bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
-                bind(Printer.class).annotatedWith(inClass(BanneredPrinter.class)).to(CheckedPrinter.class);
-                bind(Printer.class).annotatedWith(inClass(CheckedPrinter.class)).to(StandardPrinter.class);
-                bind(PrintStream.class).annotatedWith(inClass(StandardPrinter.class)).toInstance(out);
+                bind(Printer.class).annotatedWith(context(BanneredPrinter.class)).to(CheckedPrinter.class);
+                bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(StandardPrinter.class);
+                bind(PrintStream.class).annotatedWith(context(StandardPrinter.class)).toInstance(out);
             }
         };
     }

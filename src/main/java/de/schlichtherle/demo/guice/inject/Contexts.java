@@ -20,11 +20,11 @@ public final class Contexts {
      *
      * @param clazz the clazz to use as the value of the annotation.
      */
-    public static Context inClass(Class<?> clazz) {
-        return inClassChecked(Objects.requireNonNull(clazz));
+    public static Context context(Class<?> clazz) {
+        return contextChecked(Objects.requireNonNull(clazz));
     }
 
-    private static Context inClassChecked(final Class<?> clazz) {
+    private static Context contextChecked(final Class<?> clazz) {
         return new Context() {
             @Override public Class<?> value() { return clazz; }
 
