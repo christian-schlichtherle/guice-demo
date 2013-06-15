@@ -2,7 +2,7 @@
  * Copyright (C) 2013 Schlichtherle IT Services.
  * All rights reserved. Use is subject to license terms.
  */
-package de.schlichtherle.demo.guice;
+package de.schlichtherle.demo.guice.job;
 
 import de.schlichtherle.demo.guice.printer.Printer;
 import java.io.PrintStream;

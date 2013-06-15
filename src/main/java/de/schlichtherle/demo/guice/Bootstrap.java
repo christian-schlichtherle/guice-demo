@@ -7,6 +7,7 @@ package de.schlichtherle.demo.guice;
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
+import de.schlichtherle.demo.guice.job.HelloWorldJob;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
