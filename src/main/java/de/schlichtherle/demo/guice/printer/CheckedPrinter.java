@@ -32,8 +32,8 @@ public final class CheckedPrinter implements Printer {
 
             private boolean error;
 
-            @Override public void printTo(final PrintStream out) {
-                job.printTo(out);
+            @Override public void renderTo(final PrintStream out) {
+                job.renderTo(out);
                 error = out.checkError();
             }
 

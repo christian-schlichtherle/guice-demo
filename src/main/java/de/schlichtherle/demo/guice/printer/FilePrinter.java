@@ -30,7 +30,7 @@ public final class FilePrinter implements Printer {
 
     @Override public void print(final Job job) throws IOException {
         final PrintStream out = new PrintStream(new FileOutputStream(file, append));
-        try { job.printTo(out); }
+        try { job.renderTo(out); }
         finally { out.close(); }
     }
 }

@@ -342,8 +342,8 @@ public class TimeOfDayJobTest {
     public void testFormat() {
         final ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
         final PrintStream out = new PrintStream(bos);
-        try { job.printTo(out); }
-        finally { out.close(); } // for educational purposes
+        try { job.renderTo(out); }
+        finally { out.close(); }
         assertEquals(string, bos.toString());
     }
 }

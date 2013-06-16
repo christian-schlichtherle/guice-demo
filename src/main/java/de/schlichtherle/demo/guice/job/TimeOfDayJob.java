@@ -35,7 +35,7 @@ public final class TimeOfDayJob implements Printer.Job {
                 locale);
     }
 
-    @Override public void printTo(PrintStream out) {
+    @Override public void renderTo(PrintStream out) {
         out.println(timeOfDay());
     }
 

@@ -26,6 +26,6 @@ public final class StandardPrinter implements Printer {
     }
 
     @Override public void print(Job job) throws IOException {
-        job.printTo(out);
+        job.renderTo(out);
     }
 }

@@ -33,10 +33,10 @@ public class BanneredPrinter implements Printer {
 
     @Override public final void print(final Job job) throws IOException {
         printer.print(new Job() {
-            @Override public void printTo(final PrintStream out) {
-                header.printTo(out);
-                job.printTo(out);
-                footer.printTo(out);
+            @Override public void renderTo(final PrintStream out) {
+                header.renderTo(out);
+                job.renderTo(out);
+                footer.renderTo(out);
             }
         });
     }

@@ -31,7 +31,7 @@ public final class ResourceBundleJob implements Printer.Job {
         this.bundle = requireNonNull(bundle);
     }
 
-    @Override public void printTo(PrintStream out) { out.print(content()); }
+    @Override public void renderTo(PrintStream out) { out.print(content()); }
 
     private Object content() { return bundle.getObject(key); }
 }

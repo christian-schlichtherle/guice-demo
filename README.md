@@ -29,7 +29,7 @@ For the UK, the output should be similar to this:
     At the third stroke, it will be three fifty-nine and twenty-six seconds. BEEP, BEEP, BEEP.
     ----------  END PRINT  ----------
 
-You may notice that this message is similar to the messages of the famous BT
+You may notice that this message is similar to the messages of BT's popular
 [Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock)
 
 You can set different combinations of countries and languages,

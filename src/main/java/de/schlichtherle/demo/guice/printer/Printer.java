@@ -8,7 +8,7 @@ import java.io.*;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * A printer prints jobs.
+ * A printer prints a given job.
  *
  * @author Christian Schlichtherle
  */
@@ -18,9 +18,9 @@ public interface Printer {
     /** Prints the given job. */
     void print(Job job) throws IOException;
 
-    /** A job feeds some content to print streams. */
+    /** A job renders some content to a given print stream. */
     interface Job {
-        /** Prints some content to the given stream. */
-        void printTo(PrintStream out);
+        /** Renders some content to the given print stream. */
+        void renderTo(PrintStream out);
     }
 }
