@@ -18,7 +18,7 @@ import javax.inject.*;
  *
  * @author Christian Schlichtherle
  */
-public final class TimeOfDayService implements Printer.Job {
+public final class TimeOfDayJob implements Printer.Job {
 
     private static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]+");
 
@@ -26,14 +26,14 @@ public final class TimeOfDayService implements Printer.Job {
     private final Locale locale;
     private final ResourceBundle bundle;
 
-    public @Inject TimeOfDayService(final Provider<Date> clock, final Locale locale) {
+    public @Inject TimeOfDayJob(final Provider<Date> clock, final Locale locale) {
         this.clock = requireNonNull(clock);
         this.locale = requireNonNull(locale);
-        this.bundle = ResourceBundle.getBundle(TimeOfDayService.class.getName(),
+        this.bundle = ResourceBundle.getBundle(TimeOfDayJob.class.getName(),
                 locale);
     }
 
-    @Override public final void printTo(final PrintStream out) {
+    @Override public void printTo(PrintStream out) {
         out.println(timeOfDay());
     }
 

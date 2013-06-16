@@ -7,7 +7,7 @@ package de.schlichtherle.demo.guice;
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
-import de.schlichtherle.demo.guice.job.TimeOfDayService;
+import de.schlichtherle.demo.guice.job.TimeOfDayJob;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
@@ -31,7 +31,7 @@ public final class Bootstrap implements Callable<Void> {
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(TimeOfDayService.class);
+                bind(Printer.Job.class).to(TimeOfDayJob.class);
             }
 
             @Provides Locale locale() { return Locale.getDefault(); }
