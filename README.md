@@ -23,7 +23,7 @@ After building, you can run the standalone JAR like this:
 
     $ java -jar target/guice-demo-*-shaded.jar
 
-For the UK and English locale, the output should be similar to this:
+For the UK, the output should be similar to this:
 
     ---------- BEGIN PRINT ----------
     At the third stroke, it will be three fifty-nine and twenty-six seconds. BEEP, BEEP, BEEP.
@@ -31,6 +31,18 @@ For the UK and English locale, the output should be similar to this:
 
 You may notice that this message is similar to the messages of the famous BT
 [Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock)
+
+You can set different combinations of countries and languages,
+e.g. the following command
+
+    $ java -Duser.language=de -Duser.country=DE -jar target/guice-demo-*-shaded.jar
+
+should produce a message which is similar to the messages of the Deutsche
+Telekom Zeitansage:
+
+    ---------- BEGIN PRINT ----------
+    Beim nächsten Ton ist es sechzehn Uhr, fünf Minuten und siebenundvierzig Sekunden. PIIIEP.
+    ----------  END PRINT  ----------
 
 ## License
 
