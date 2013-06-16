@@ -49,9 +49,7 @@ public final class Bootstrap implements Callable<Void> {
                return new ResourceBundleJob("endPrint", bundle);
             }
 
-            @Provides ResourceBundle bundle() {
-                return ResourceBundle.getBundle(Application.class.getName());
-            }
+            @Provides ResourceBundle bundle() { return Messages.bundle; }
         };
     }
 
