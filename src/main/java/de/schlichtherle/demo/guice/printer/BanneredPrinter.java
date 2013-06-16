@@ -10,7 +10,7 @@ import java.io.*;
 import javax.inject.Inject;
 
 /**
- * Decorates print jobs with a printHeaderTo and a printFooterTo message.
+ * Decorates print jobs with a header and a footer.
  *
  * @author Christian Schlichtherle
  */

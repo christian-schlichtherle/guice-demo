@@ -7,10 +7,11 @@ package de.schlichtherle.demo.guice;
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
-import de.schlichtherle.demo.guice.job.HelloWorldJob;
+import de.schlichtherle.demo.guice.job.TimeOfDayService;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 
 /**
@@ -22,16 +23,18 @@ import java.util.concurrent.Callable;
 public final class Bootstrap implements Callable<Void> {
 
     private final Injector injector = Guice.createInjector(
-            helloWorldJobModule(),
+            jobModule(),
             teePrinterModule(),
             filePrinterModule(named("primary"), new File("print.log")),
             standardPrinterModule(named("secondary"), System.out));
 
-    private static Module helloWorldJobModule() {
+    private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(HelloWorldJob.class);
+                bind(Printer.Job.class).to(TimeOfDayService.class);
             }
+
+            @Provides Locale locale() { return Locale.getDefault(); }
         };
     }
 
@@ -78,5 +81,7 @@ public final class Bootstrap implements Callable<Void> {
 
     @Override public Void call() throws Exception { return main().call(); }
 
-    private Application main() { return injector.getInstance(Application.class); }
+    private Application main() {
+        return injector.getInstance(Application.class);
+    }
 }
