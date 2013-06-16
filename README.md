@@ -30,7 +30,7 @@ For the UK, the output should be similar to this:
     ----------  END PRINT  ----------
 
 You may notice that this message is similar to the messages of BT's popular
-[Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock)
+[Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock).
 
 You can set different combinations of countries and languages,
 e.g. the following command:
