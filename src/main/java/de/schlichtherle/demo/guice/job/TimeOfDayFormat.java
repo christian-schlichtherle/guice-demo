@@ -22,8 +22,7 @@ final class TimeOfDayFormat extends Format {
 
     TimeOfDayFormat(final Locale locale) {
         this.locale = requireNonNull(locale);
-        this.bundle = ResourceBundle.getBundle(TimeOfDayFormat.class.getName(),
-                locale);
+        this.bundle = ResourceBundle.getBundle(getClass().getName(), locale);
     }
 
     @Override
