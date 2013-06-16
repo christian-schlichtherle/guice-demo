@@ -143,9 +143,7 @@ public final class TimeOfDayJob implements Printer.Job {
 
         @Override public String toString() { return lookup(name()); }
 
-        private String lookup(String key) {
-            return bundle.getString(key);
-        }
+        private String lookup(String key) { return bundle.getString(key); }
 
         private String name() { return message.name(); }
     }
