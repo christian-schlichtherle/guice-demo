@@ -66,7 +66,7 @@ public final class TimeOfDayJob implements Printer.Job {
 
     private String replaceIntegersWithWords(final String text) {
         final Matcher matcher = INTEGER_PATTERN.matcher(text);
-        final Format format = new Integer2WordsFormat(locale);
+        final Format format = new TimeOfDayFormat(locale);
         final StringBuffer result = new StringBuffer(text.length());
         while (matcher.find()) {
             matcher.appendReplacement(result, "");

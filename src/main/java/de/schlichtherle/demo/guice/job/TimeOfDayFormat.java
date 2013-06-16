@@ -13,23 +13,29 @@ import java.util.*;
  *
  * @author Christian Schlichtherle
  */
-final class Integer2WordsFormat extends Format {
+final class TimeOfDayFormat extends Format {
 
     private static final long serialVersionUID = 1L;
 
     private final Locale locale;
     private final ResourceBundle bundle;
 
-    Integer2WordsFormat(final Locale locale) {
+    TimeOfDayFormat(final Locale locale) {
         this.locale = requireNonNull(locale);
-        this.bundle = ResourceBundle.getBundle(Integer2WordsFormat.class.getName(),
+        this.bundle = ResourceBundle.getBundle(TimeOfDayFormat.class.getName(),
                 locale);
     }
 
     @Override
-    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+    public StringBuffer format(
+            final Object obj,
+            final StringBuffer toAppendTo,
+            final FieldPosition pos) {
+        final int integer = (Integer) obj;
+        if (integer < 0 || 60 < integer)
+            throw new NumberFormatException(integer + " is out of range. Valid integers range from 0 to 60 inclusively.");
         pos.setBeginIndex(toAppendTo.length());
-        toAppendTo.append(words((Integer) obj));
+        toAppendTo.append(words(integer));
         pos.setEndIndex(toAppendTo.length());
         return toAppendTo;
     }
@@ -38,12 +44,12 @@ final class Integer2WordsFormat extends Format {
         throw new UnsupportedOperationException();
     }
 
-    private String words(final int number) {
+    private String words(final int integer) {
         try {
-            return lookup(Integer.toString(number));
+            return lookup(Integer.toString(integer));
         } catch (MissingResourceException ex) {
             return format(Message.tensAndOnes,
-                    words(tens(number) * 10), words(ones(number)));
+                    words(tens(integer) * 10), words(ones(integer)));
         }
     }
 
@@ -61,15 +67,15 @@ final class Integer2WordsFormat extends Format {
 
     String lookup(String key) { return bundle.getString(key); }
 
-    private static int tens(int number) { return number / 10; }
+    private static int tens(int integer) { return integer / 10; }
 
-    private static int ones(int number) { return number % 10; }
+    private static int ones(int integer) { return integer % 10; }
 
     private enum Message {
         tensAndOnes;
 
-        String stringFrom(Integer2WordsFormat i2wf) {
-            return i2wf.lookup(name());
+        String stringFrom(TimeOfDayFormat format) {
+            return format.lookup(name());
         }
     }
 }
