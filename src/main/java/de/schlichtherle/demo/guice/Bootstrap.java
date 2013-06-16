@@ -7,13 +7,16 @@ package de.schlichtherle.demo.guice;
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
+import de.schlichtherle.demo.guice.job.ResourceBundleJob;
 import de.schlichtherle.demo.guice.job.TimeOfDayJob;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
+import javax.inject.Named;
 
 /**
  * Provides a {@link #main} method to configure Google Juice and start the
@@ -37,6 +40,18 @@ public final class Bootstrap implements Callable<Void> {
             }
 
             @Provides Locale locale() { return Locale.getDefault(); }
+
+            @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
+               return new ResourceBundleJob("beginPrint", bundle);
+            }
+
+            @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
+               return new ResourceBundleJob("endPrint", bundle);
+            }
+
+            @Provides ResourceBundle bundle() {
+                return ResourceBundle.getBundle(Application.class.getName());
+            }
         };
     }
 

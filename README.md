@@ -33,16 +33,16 @@ You may notice that this message is similar to the messages of the famous BT
 [Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock)
 
 You can set different combinations of countries and languages,
-e.g. the following command
+e.g. the following command:
 
     $ java -Duser.language=de -Duser.country=DE -jar target/guice-demo-*-shaded.jar
 
-should produce a message which is similar to the messages of the Deutsche
+... should produce a message which is similar to the messages of the Deutsche
 Telekom Zeitansage:
 
-    ---------- BEGIN PRINT ----------
+    ---------- DRUCK ANFANG ----------
     Beim nächsten Ton ist es sechzehn Uhr, fünf Minuten und siebenundvierzig Sekunden. PIIIEP.
-    ----------  END PRINT  ----------
+    ----------  DRUCK ENDE  ----------
 
 ## License
 

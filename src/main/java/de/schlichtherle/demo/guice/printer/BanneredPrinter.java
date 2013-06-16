@@ -5,10 +5,11 @@
 package de.schlichtherle.demo.guice.printer;
 
 import de.schlichtherle.demo.guice.inject.Context;
-import de.schlichtherle.demo.guice.util.Objects;
+import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.io.*;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Decorates print jobs with a header and a footer.
@@ -19,38 +20,23 @@ import javax.inject.Inject;
 public class BanneredPrinter implements Printer {
 
     private final Printer printer;
+    private final Job header, footer;
 
     public @Inject BanneredPrinter(
-            final @Context(BanneredPrinter.class) Printer printer) {
-        this.printer = Objects.requireNonNull(printer);
-    }
-
-    /** Prints the header message to the given stream. */
-    protected void printHeaderTo(PrintStream out) {
-        out.println(headerMessage());
-    }
-
-    /** Returns the header message. */
-    protected String headerMessage() {
-        return "---------- BEGIN PRINT ----------";
-    }
-
-    /** Prints the footer message to the given stream. */
-    protected void printFooterTo(PrintStream out) {
-        out.println(footerMessage());
-    }
-
-    /** Returns the footer message. */
-    protected String footerMessage() {
-        return "----------  END PRINT  ----------";
+            final @Context(BanneredPrinter.class) Printer printer,
+            final @Named("header") Job header,
+            final @Named("footer") Job footer) {
+        this.printer = requireNonNull(printer);
+        this.header = requireNonNull(header);
+        this.footer = requireNonNull(footer);
     }
 
     @Override public final void print(final Job job) throws IOException {
         printer.print(new Job() {
             @Override public void printTo(final PrintStream out) {
-                printHeaderTo(out);
+                header.printTo(out);
                 job.printTo(out);
-                printFooterTo(out);
+                footer.printTo(out);
             }
         });
     }

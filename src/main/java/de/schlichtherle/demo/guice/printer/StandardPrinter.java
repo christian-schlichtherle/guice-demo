@@ -18,7 +18,7 @@ import javax.inject.Inject;
 @Immutable
 public final class StandardPrinter implements Printer {
 
-    private PrintStream out;
+    private final PrintStream out;
 
     public @Inject StandardPrinter(
             final @Context(StandardPrinter.class) PrintStream out) {
