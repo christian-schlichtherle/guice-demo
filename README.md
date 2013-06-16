@@ -1,14 +1,14 @@
 # Guice Demo
 
 This standalone project demonstrates how to setup and run a Guice Injector for
-printing "Hello world!" to standard output, together with some decorations to
-set the message apart from others.
+printing a localized time-of-the-day message to some output stream, together
+with some decorations to set the message apart from others.
 
 The project provides interfaces and implementations for printers and jobs.
 Some implementations are decorators for printers which separate the content
 produced by print jobs and do some error checking.
 When bootstrapping, a Guice injector is configured which wires a print job
-for printing "Hello world!" to a decorated printer.
+for printing the localized time-of-the-day message to a decorated printer.
 
 ## Building
 
@@ -23,11 +23,14 @@ After building, you can run the standalone JAR like this:
 
     $ java -jar target/guice-demo-*-shaded.jar
 
-The output should be:
+For the UK and English locale, the output should be similar to this:
 
     ---------- BEGIN PRINT ----------
-    Hello world!
+    At the third stroke, it will be three fifty-nine and twenty-six seconds. BEEP, BEEP, BEEP.
     ----------  END PRINT  ----------
+
+You may notice that this message is similar to the messages of the famous BT
+[Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock)
 
 ## License
 
