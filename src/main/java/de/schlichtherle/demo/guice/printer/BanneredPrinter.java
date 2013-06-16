@@ -7,6 +7,7 @@ package de.schlichtherle.demo.guice.printer;
 import de.schlichtherle.demo.guice.inject.Context;
 import de.schlichtherle.demo.guice.util.Objects;
 import java.io.*;
+import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
 
 /**
@@ -14,6 +15,7 @@ import javax.inject.Inject;
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public class BanneredPrinter implements Printer {
 
     private final Printer printer;

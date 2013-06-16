@@ -2,6 +2,7 @@ package de.schlichtherle.demo.guice.printer;
 
 import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.io.IOException;
+import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
@@ -9,6 +10,7 @@ import javax.inject.*;
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class TeePrinter implements Printer {
 
     private final Printer primary, secondary;

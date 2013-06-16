@@ -8,14 +8,16 @@ import de.schlichtherle.demo.guice.printer.Printer;
 import de.schlichtherle.demo.guice.util.Objects;
 import java.io.IOException;
 import java.util.concurrent.Callable;
+import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
  * When {@linkplain #call called}, this application prints a provided job to
  * a given printer.
- * 
+ *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class Application implements Callable<Void> {
 
     private final Printer printer;

@@ -6,12 +6,14 @@ package de.schlichtherle.demo.guice.inject;
 
 import de.schlichtherle.demo.guice.util.Objects;
 import java.lang.annotation.Annotation;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Provides utility functions for the {@link Context} annotation.
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class Contexts {
 
     /**

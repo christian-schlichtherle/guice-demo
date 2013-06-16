@@ -5,12 +5,14 @@
 package de.schlichtherle.demo.guice.printer;
 
 import java.io.*;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * A printer prints jobs.
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public interface Printer {
 
     /** Prints the given job. */

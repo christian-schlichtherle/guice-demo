@@ -7,12 +7,14 @@ package de.schlichtherle.demo.guice.job;
 import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.text.*;
 import java.util.*;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Formats a given integer as localized words.
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 final class TimeOfDayFormat extends Format {
 
     private static final long serialVersionUID = 1L;

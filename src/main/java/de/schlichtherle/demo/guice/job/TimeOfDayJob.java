@@ -11,6 +11,7 @@ import static java.lang.Integer.*;
 import java.text.*;
 import java.util.*;
 import java.util.regex.*;
+import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
@@ -18,6 +19,7 @@ import javax.inject.*;
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class TimeOfDayJob implements Printer.Job {
 
     private static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]+");

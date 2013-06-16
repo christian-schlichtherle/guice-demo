@@ -4,12 +4,15 @@
  */
 package de.schlichtherle.demo.guice.util;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * A poor man's version of {@code java.util.Objects}, which appeared in
  * Java SE 7.
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class Objects {
 
     /**

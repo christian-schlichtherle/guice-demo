@@ -13,6 +13,7 @@ import java.io.*;
 import java.lang.annotation.Annotation;
 import java.util.Locale;
 import java.util.concurrent.Callable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Provides a {@link #main} method to configure Google Juice and start the
@@ -20,6 +21,7 @@ import java.util.concurrent.Callable;
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 public final class Bootstrap implements Callable<Void> {
 
     private final Injector injector = Guice.createInjector(
