@@ -340,10 +340,10 @@ public class TimeOfDayJobTest {
 
     @Test
     public void testFormat() {
-        final ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
-        final PrintStream out = new PrintStream(bos);
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
+        final PrintStream out = new PrintStream(baos);
         try { job.renderTo(out); }
         finally { out.close(); }
-        assertEquals(string, bos.toString());
+        assertEquals(string, baos.toString());
     }
 }
