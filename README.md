@@ -41,7 +41,7 @@ e.g. the following command:
 Telekom Zeitansage:
 
     ---------- DRUCK ANFANG ----------
-    Beim nächsten Ton ist es sechzehn Uhr, fünf Minuten und siebenundvierzig Sekunden. PIIIEP.
+    Beim nächsten Ton ist es sechzehn Uhr, fünf Minuten und siebenundvierzig Sekunden. PIEP.
     ----------  DRUCK ENDE  ----------
 
 ## License
