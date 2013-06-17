@@ -8,16 +8,15 @@ import de.schlichtherle.demo.guice.inject.Context;
 import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.io.*;
 import javax.annotation.concurrent.Immutable;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.inject.*;
 
 /**
- * Decorates print jobs with a header and a footer.
+ * Decorates print jobs with a header and a footer job.
  *
  * @author Christian Schlichtherle
  */
 @Immutable
-public class BanneredPrinter implements Printer {
+public final class BanneredPrinter implements Printer {
 
     private final Printer printer;
     private final Job header, footer;
