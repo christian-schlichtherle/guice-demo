@@ -14,7 +14,7 @@ import javax.inject.Qualifier;
  * <pre>{@code
 class MyPrinter implements Printer {
 
-    public @Inject MyPrinter(@Context(MyPrinter.class) Printer printer) {
+    @Inject MyPrinter(@Context(MyPrinter.class) Printer printer) {
         ...
     }
 

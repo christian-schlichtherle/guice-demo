@@ -35,14 +35,14 @@ public final class Contexts {
             }
 
             @Override public boolean equals(Object obj) {
-                // Mind contract!
+                // Mind contract of java.lang.Annotation!
                 if (!(obj instanceof Context)) return false;
                 final Context that = (Context) obj;
                 return this.value().equals(that.value());
             }
 
             @Override public int hashCode() {
-                // Mind contract!
+                // Mind contract of java.lang.Annotation!
                 return (127 * "value".hashCode()) ^ value().hashCode();
             }
 
