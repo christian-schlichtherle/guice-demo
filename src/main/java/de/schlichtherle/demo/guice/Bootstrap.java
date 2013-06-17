@@ -29,8 +29,8 @@ import javax.inject.Named;
 public final class Bootstrap implements Callable<Void> {
 
     private final Injector injector = Guice.createInjector(
-            jobModule(),
-            printerModule(new File("print.log"), System.out));
+            printerModule(new File("print.log"), System.out),
+            jobModule());
 
     private static Module jobModule() {
         return new AbstractModule() {
