@@ -338,8 +338,7 @@ public class TimeOfDayJobTest {
         this.string = string;
     }
 
-    @Test
-    public void testFormat() {
+    @Test public void testRenderTo() {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
         final PrintStream out = new PrintStream(baos);
         try { job.renderTo(out); }
