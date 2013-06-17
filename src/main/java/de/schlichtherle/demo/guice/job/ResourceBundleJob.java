@@ -13,8 +13,9 @@ import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
 
 /**
- * Prints the identified localized content to a given stream.
- * The content gets lazily resolved by looking up a key in a resource bundle.
+ * Prints some localized content to a given stream.
+ * The localized content gets lazily resolved by looking up a key in a resource
+ * bundle.
  *
  * @author Christian Schlichtherle
  */
