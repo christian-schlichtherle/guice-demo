@@ -28,4 +28,30 @@ public final class Objects {
         if (null == object) throw new NullPointerException();
         return object;
     }
+
+    /**
+     * Returns the given {@code integer} if it's not negative;
+     * otherwise throws an {@link IllegalArgumentException}.
+     *
+     * @param integer the integer.
+     * @return {@code integer}
+     * @throws IllegalArgumentException if {@code integer} is negative.
+     */
+    public static int requireNonNegative(int integer) {
+        if (0 > integer) throw new IllegalArgumentException();
+        return integer;
+    }
+
+    /**
+     * Returns the given {@code integer} if it's positive;
+     * otherwise throws an {@link IllegalArgumentException}.
+     *
+     * @param integer the integer.
+     * @return {@code integer}
+     * @throws IllegalArgumentException if {@code integer} is not positive.
+     */
+    public static int requirePositive(int integer) {
+        if (0 >= integer) throw new IllegalArgumentException();
+        return integer;
+    }
 }
