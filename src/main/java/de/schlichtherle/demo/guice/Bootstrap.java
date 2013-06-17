@@ -7,6 +7,7 @@ package de.schlichtherle.demo.guice;
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
+import de.schlichtherle.demo.guice.job.BufferedJob;
 import de.schlichtherle.demo.guice.job.ResourceBundleJob;
 import de.schlichtherle.demo.guice.job.TimeOfDayJob;
 import de.schlichtherle.demo.guice.printer.*;
@@ -29,14 +30,14 @@ public final class Bootstrap implements Callable<Void> {
 
     private final Injector injector = Guice.createInjector(
             jobModule(),
-            teePrinterModule(),
-            filePrinterModule(named("primary"), new File("print.log")),
-            standardPrinterModule(named("secondary"), System.out));
+            printerModule(new File("print.log"), System.out));
 
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(TimeOfDayJob.class);
+                bind(Printer.Job.class).to(BufferedJob.class);
+                bind(Printer.Job.class).annotatedWith(context(BufferedJob.class)).to(TimeOfDayJob.class);
+                bindConstant().annotatedWith(named("initialCapacity")).to(1024);
             }
 
             @Provides Locale locale() { return Locale.getDefault(); }
@@ -53,10 +54,12 @@ public final class Bootstrap implements Callable<Void> {
         };
     }
 
-    private static Module teePrinterModule() {
+    private static Module printerModule(final File file, final PrintStream out) {
         return new AbstractModule() {
             @Override protected void configure() {
                 bind(Printer.class).to(TeePrinter.class);
+                install(filePrinterModule(named("primary"), file));
+                install(standardPrinterModule(named("secondary"), out));
             }
         };
     }
