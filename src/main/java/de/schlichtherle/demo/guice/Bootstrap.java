@@ -32,28 +32,6 @@ public final class Bootstrap implements Callable<Void> {
             printerModule(new File("print.log"), System.out),
             jobModule());
 
-    private static Module jobModule() {
-        return new AbstractModule() {
-            @Override protected void configure() {
-                bind(Printer.Job.class).to(BufferedJob.class);
-                bind(Printer.Job.class).annotatedWith(context(BufferedJob.class)).to(TimeOfDayJob.class);
-                bindConstant().annotatedWith(named("initialCapacity")).to(1024);
-            }
-
-            @Provides Locale locale() { return Locale.getDefault(); }
-
-            @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
-               return new ResourceBundleJob("beginPrint", bundle);
-            }
-
-            @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
-               return new ResourceBundleJob("endPrint", bundle);
-            }
-
-            @Provides ResourceBundle bundle() { return Messages.bundle; }
-        };
-    }
-
     private static Module printerModule(final File file, final PrintStream out) {
         return new AbstractModule() {
             @Override protected void configure() {
@@ -90,6 +68,28 @@ public final class Bootstrap implements Callable<Void> {
                 bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(StandardPrinter.class);
                 bind(PrintStream.class).annotatedWith(context(StandardPrinter.class)).toInstance(out);
             }
+        };
+    }
+
+    private static Module jobModule() {
+        return new AbstractModule() {
+            @Override protected void configure() {
+                bind(Printer.Job.class).to(BufferedJob.class);
+                bind(Printer.Job.class).annotatedWith(context(BufferedJob.class)).to(TimeOfDayJob.class);
+                bindConstant().annotatedWith(named("initialCapacity")).to(1024);
+            }
+
+            @Provides Locale locale() { return Locale.getDefault(); }
+
+            @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
+               return new ResourceBundleJob("beginPrint", bundle);
+            }
+
+            @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
+               return new ResourceBundleJob("endPrint", bundle);
+            }
+
+            @Provides ResourceBundle bundle() { return Messages.bundle; }
         };
     }
 
