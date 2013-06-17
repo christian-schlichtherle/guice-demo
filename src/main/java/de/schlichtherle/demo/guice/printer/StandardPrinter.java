@@ -11,7 +11,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
 
 /**
- * Prints jobs to a given print stream.
+ * Prints jobs to a print stream.
  *
  * @author Christian Schlichtherle
  */

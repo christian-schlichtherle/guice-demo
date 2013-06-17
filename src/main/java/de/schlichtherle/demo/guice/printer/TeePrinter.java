@@ -6,9 +6,9 @@ import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
- * Prints each job to the two given printers.
- * Note that if a job's content is dynamically rendered, then the two printers
- * may receive different output.
+ * Prints each job to two printers.
+ * If a job's content is dynamically rendered, then the two printers may
+ * produce different output.
  *
  * @author Christian Schlichtherle
  */

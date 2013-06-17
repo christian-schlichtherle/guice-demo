@@ -11,7 +11,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
- * Prints jobs to a given file.
+ * Prints jobs to a file.
  *
  * @author Christian Schlichtherle
  */

@@ -13,7 +13,8 @@ import javax.inject.Inject;
 /**
  * Flushes the print stream and checks its status after
  * {@linkplain #print printing} each job.
- * If an error occured while printing, an {@link IOException} gets thrown.
+ * If an error occured while printing, an {@link IOException} gets thrown
+ * (note that {@link PrintStream} doesn't throw an {@code IOException}).
  *
  * @author Christian Schlichtherle
  */
