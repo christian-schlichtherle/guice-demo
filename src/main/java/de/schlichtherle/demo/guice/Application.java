@@ -5,15 +5,15 @@
 package de.schlichtherle.demo.guice;
 
 import de.schlichtherle.demo.guice.printer.Printer;
-import de.schlichtherle.demo.guice.util.Objects;
+import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.*;
 
 /**
- * When {@linkplain #call called}, this application prints a provided job to
- * a given printer.
+ * When {@linkplain #call called}, this application prints a lazily resolved
+ * job to a printer.
  *
  * @author Christian Schlichtherle
  */
@@ -26,8 +26,8 @@ public final class Application implements Callable<Void> {
     public @Inject Application(
             final Printer printer,
             final Provider<Printer.Job> jobProvider) {
-        this.printer = Objects.requireNonNull(printer);
-        this.jobProvider = Objects.requireNonNull(jobProvider);
+        this.printer = requireNonNull(printer);
+        this.jobProvider = requireNonNull(jobProvider);
     }
 
     @Override public Void call() throws IOException {
