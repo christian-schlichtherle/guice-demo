@@ -5,12 +5,12 @@
 package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
+import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
-import javax.inject.Named;
 
 /**
  * Provides a {@link #main} method to configure Google Juice and start the
@@ -39,14 +39,6 @@ public final class Bootstrap implements Callable<Void> {
                         .annotatedWith(context(StandardPrinter.class))
                         .toInstance(out);
             }
-
-            @Provides @Named("header") Printer.Job header() {
-               return Messages.beginPrint.job();
-            }
-
-            @Provides @Named("footer") Printer.Job footer() {
-               return Messages.endPrint.job();
-            }
         };
     }
 
@@ -54,6 +46,10 @@ public final class Bootstrap implements Callable<Void> {
         return new AbstractModule() {
             @Override protected void configure() {
                 bind(Printer.Job.class).toInstance(Messages.helloWorld.job());
+                bind(Printer.Job.class).annotatedWith(named("header"))
+                        .toInstance(Messages.beginPrint.job());
+                bind(Printer.Job.class).annotatedWith(named("footer"))
+                        .toInstance(Messages.endPrint.job());
             }
         };
     }
