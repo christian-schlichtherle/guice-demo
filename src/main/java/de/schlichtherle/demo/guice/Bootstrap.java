@@ -81,9 +81,11 @@ public final class Bootstrap implements Callable<Void> {
         new Bootstrap().call();
     }
 
-    @Override public Void call() throws Exception { return main().call(); }
+    @Override public Void call() throws Exception {
+        return application().call();
+    }
 
-    private Application main() {
+    private Application application() {
         return injector.getInstance(Application.class);
     }
 }
