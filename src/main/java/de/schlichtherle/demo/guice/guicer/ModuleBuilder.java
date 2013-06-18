@@ -87,9 +87,7 @@ implements Builder<Module>, Injection<Target> {
         final List<Installable<PrivateBinder>> exposings = swapExposings();
         if (exposings.isEmpty()) {
             return new AbstractModule() {
-                @Override protected void configure() {
-                    installTo(binder());
-                }
+                @Override protected void configure() { installTo(binder()); }
             };
         } else {
             return new PrivateModule() {
