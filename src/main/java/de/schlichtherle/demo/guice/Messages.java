@@ -7,6 +7,7 @@ package de.schlichtherle.demo.guice;
 import de.schlichtherle.demo.guice.job.ResourceBundleJob;
 import de.schlichtherle.demo.guice.printer.Printer;
 import java.util.ResourceBundle;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Creates jobs for printing application messages.
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
  *
  * @author Christian Schlichtherle
  */
+@Immutable
 enum Messages {
     beginPrint, endPrint;
 
