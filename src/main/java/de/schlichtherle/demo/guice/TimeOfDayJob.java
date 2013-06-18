@@ -26,36 +26,51 @@ public final class TimeOfDayJob implements Printer.Job {
 
     private final Provider<Date> clock;
     private final Locale locale;
+    private final int durationSeconds, intervalSeconds;
     private final ResourceBundle bundle;
 
-    public @Inject TimeOfDayJob(
-            final Provider<Date> clock,
-            final Locale locale,
-            final @Named("duration") int duration,
-            final @Named("interval") int interval) {
-        this.clock = requireNonNull(clock);
-        this.locale = requireNonNull(locale);
+    private TimeOfDayJob(final Builder builder) {
+        this.clock = requireNonNull(builder.clock);
+        this.locale = requireNonNull(builder.locale);
+        this.durationSeconds = requireNonNegative(builder.durationSeconds);
+        this.intervalSeconds = requirePositive(builder.intervalSeconds);
         this.bundle = ResourceBundle.getBundle(TimeOfDayJob.class.getName(),
-                locale);
-        requireNonNegative(duration);
-        requirePositive(interval);
+                builder.locale);
     }
 
-    private Locale locale() { return locale; }
-
-    @Override public void renderTo(PrintStream out) {
-        final Object[] args = args(fields(dates()));
-        out.print(greeting(args));
-        out.print(looping(args));
+    @Override public void renderTo(final PrintStream out) {
+        greetTo(out);
+        loopTo(out);
     }
 
-    private String greeting(Object[] args) {
-        return format(Message.greeting, args);
+    private void greetTo(PrintStream out) { out.print(greeting()); }
+
+    private String greeting() { return format(Message.greeting, args()); }
+
+    @SuppressWarnings("SleepWhileInLoop")
+    private void loopTo(final PrintStream out) {
+        final long interval = intervalSeconds * 1000;
+        long duration = durationSeconds * 1000;
+        while (true) {
+            final Timer timer = new Timer();
+            out.print(looping());
+            final long toWait = Math.min(interval, duration) - timer.elapsed();
+            if (0 >= toWait) break;
+            try { Thread.sleep(toWait); }
+            catch (InterruptedException ex) { break; }
+            duration -= timer.elapsed();
+        }
     }
 
-    private String looping(Object[] args) {
-        return format(Message.looping, args);
+    private static class Timer {
+        final long started = System.currentTimeMillis();
+
+        long elapsed() { return System.currentTimeMillis() - started; }
     }
+
+    private String looping() { return format(Message.looping, args()); }
+
+    private Object[] args() { return args(fields()); }
 
     private Object[] args(final Object[] fields) {
         final String[] args = stringsFor(Message.args);
@@ -64,6 +79,8 @@ public final class TimeOfDayJob implements Printer.Job {
         return args;
     }
 
+    private Object[] fields() { return fields(dates()); }
+
     private Object[] fields(final Date[] dates) {
         final String[] strings = stringsFor(Message.fields);
         final Object[] objects = new Object[strings.length];
@@ -71,7 +88,7 @@ public final class TimeOfDayJob implements Printer.Job {
             final String string = format(strings[i], dates);
             try {
                 objects[i] = valueOf(string);
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException ex) { // e.g. "AM" or "PM"
                 objects[i] = string;
             }
         }
@@ -82,7 +99,7 @@ public final class TimeOfDayJob implements Printer.Job {
 
     private String replaceIntegersWithWords(final String text) {
         final Matcher matcher = INTEGER_PATTERN.matcher(text);
-        final Format format = new TimeOfDayFormat(locale());
+        final Format format = new TimeOfDayFormat(locale);
         final StringBuffer result = new StringBuffer(text.length());
         while (matcher.find()) {
             matcher.appendReplacement(result, "");
@@ -101,7 +118,7 @@ public final class TimeOfDayJob implements Printer.Job {
     }
 
     private MessageFormat format(String pattern) {
-        return new MessageFormat(pattern, locale());
+        return new MessageFormat(pattern, locale);
     }
 
     private String[] stringsFor(Message message) {
@@ -162,5 +179,39 @@ public final class TimeOfDayJob implements Printer.Job {
         private String lookup(String key) { return bundle.getString(key); }
 
         private String name() { return message.name(); }
+    }
+
+    /**
+     * Builds a {@link TimeOfDayJob}.
+     *
+     * @author Christian Schlichtherle
+     */
+    public static class Builder {
+
+        private Provider<Date> clock;
+        private Locale locale;
+        private int durationSeconds, intervalSeconds;
+
+        public Builder clock(final Provider<Date> clock) {
+            this.clock = clock;
+            return this;
+        }
+
+        public Builder locale(final Locale locale) {
+            this.locale = locale;
+            return this;
+        }
+
+        public Builder durationSeconds(final int durationSeconds) {
+            this.durationSeconds = durationSeconds;
+            return this;
+        }
+
+        public Builder intervalSeconds(final int intervalSeconds) {
+            this.intervalSeconds = intervalSeconds;
+            return this;
+        }
+
+        public TimeOfDayJob build() { return new TimeOfDayJob(this); }
     }
 }

@@ -11,6 +11,7 @@ import de.schlichtherle.demo.guice.job.*;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
 import java.lang.annotation.Annotation;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
@@ -77,11 +78,24 @@ public final class Bootstrap implements Callable<Void> {
                 bindConstant().annotatedWith(named("initialCapacity")).to(1024);
             }
 
+            @Provides TimeOfDayJob timeOfDayJob(
+                    Provider<Date> clock,
+                    Locale locale,
+                    @Named("duration") int durationSeconds,
+                    @Named("interval") int intervalSeconds) {
+                return new TimeOfDayJob.Builder()
+                        .clock(clock)
+                        .locale(locale)
+                        .durationSeconds(durationSeconds)
+                        .intervalSeconds(intervalSeconds)
+                        .build();
+            }
+
             @Provides Locale locale() { return Locale.getDefault(); }
 
-            @Provides @Named("duration") int duration() { return 0; }
+            @Provides @Named("duration") int durationSeconds() { return 2; }
 
-            @Provides @Named("interval") int interval() { return 1; }
+            @Provides @Named("interval") int intervalSeconds() { return 1; }
         };
     }
 
