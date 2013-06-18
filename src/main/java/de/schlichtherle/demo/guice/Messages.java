@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  * @author Christian Schlichtherle
  */
 enum Messages {
-    beginPrint, endPrint;
+    beginPrint, helloWorld, endPrint;
 
     static final ResourceBundle
             bundle = ResourceBundle.getBundle(Messages.class.getName());

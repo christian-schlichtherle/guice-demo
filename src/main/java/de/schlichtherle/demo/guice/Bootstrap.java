@@ -52,7 +52,7 @@ public final class Bootstrap implements Callable<Void> {
         return new AbstractModule() {
             @Override protected void configure() {
                 bind(Printer.Job.class).to(ResourceBundleJob.class);
-                bindConstant().annotatedWith(context(ResourceBundleJob.class)).to("helloWorld");
+                bindConstant().annotatedWith(context(ResourceBundleJob.class)).to(Messages.helloWorld.name());
                 bind(ResourceBundle.class).annotatedWith(context(ResourceBundleJob.class)).toInstance(Messages.bundle);
             }
         };
