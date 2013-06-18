@@ -35,11 +35,11 @@ public final class Bootstrap implements Callable<Void> {
             }
 
             @Provides @Named("header") Printer.Job header() {
-               return Messages.beginPrint.printerJob();
+               return Messages.beginPrint.job();
             }
 
             @Provides @Named("footer") Printer.Job footer() {
-               return Messages.endPrint.printerJob();
+               return Messages.endPrint.job();
             }
         };
     }

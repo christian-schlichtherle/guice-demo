@@ -20,5 +20,5 @@ enum Messages {
     private static final ResourceBundle
             bundle = ResourceBundle.getBundle(Messages.class.getName());
 
-    Printer.Job printerJob() { return new ResourceBundleJob(name(), bundle); }
+    Printer.Job job() { return new ResourceBundleJob(name(), bundle); }
 }
