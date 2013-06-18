@@ -6,10 +6,8 @@ package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
-import de.schlichtherle.demo.guice.job.*;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
-import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.Named;
@@ -36,24 +34,20 @@ public final class Bootstrap implements Callable<Void> {
                 bind(PrintStream.class).annotatedWith(context(StandardPrinter.class)).toInstance(out);
             }
 
-            @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
-               return new ResourceBundleJob(Messages.beginPrint, bundle);
+            @Provides @Named("header") Printer.Job header() {
+               return Messages.beginPrint.printerJob();
             }
 
-            @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
-               return new ResourceBundleJob(Messages.endPrint, bundle);
+            @Provides @Named("footer") Printer.Job footer() {
+               return Messages.endPrint.printerJob();
             }
-
-            @Provides ResourceBundle bundle() { return Messages.bundle; }
         };
     }
 
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(ResourceBundleJob.class);
-                bindConstant().annotatedWith(context(ResourceBundleJob.class)).to(Messages.helloWorld.name());
-                bind(ResourceBundle.class).annotatedWith(context(ResourceBundleJob.class)).toInstance(Messages.bundle);
+                bind(Printer.Job.class).toInstance(Messages.helloWorld.printerJob());
             }
         };
     }
