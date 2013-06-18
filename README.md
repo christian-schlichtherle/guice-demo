@@ -54,6 +54,9 @@ Telekom Zeitansage:
     Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und vierzehn Sekunden. PIEP.
     ----------  DRUCK ENDE  ----------
 
+For fun, you can easily add other localizations. Please send me a pull request
+if you do, so that I can add it to the code base. I am looking forward to it.
+
 ## License
 
 This demo project is covered by the
