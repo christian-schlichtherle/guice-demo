@@ -42,14 +42,6 @@ public final class Bootstrap implements Callable<Void> {
                         .annotatedWith(context(StandardPrinter.class))
                         .toInstance(out);
             }
-
-            @Provides @Named("header") Printer.Job header() {
-               return Messages.beginPrint.job();
-            }
-
-            @Provides @Named("footer") Printer.Job footer() {
-               return Messages.endPrint.job();
-            }
         };
     }
 
@@ -57,6 +49,10 @@ public final class Bootstrap implements Callable<Void> {
         return new AbstractModule() {
             @Override protected void configure() {
                 bind(Printer.Job.class).to(TimeOfDayJob.class);
+                bind(Printer.Job.class).annotatedWith(named("header"))
+                        .toInstance(Messages.beginPrint.job());
+                bind(Printer.Job.class).annotatedWith(named("footer"))
+                        .toInstance(Messages.endPrint.job());
                 bind(Locale.class).toInstance(Locale.getDefault());
                 bindConstant().annotatedWith(named("duration")).to(4);
                 bindConstant().annotatedWith(named("interval")).to(1);
