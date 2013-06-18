@@ -25,6 +25,10 @@ public final class ResourceBundleJob implements Printer.Job {
     private final String key;
     private final ResourceBundle bundle;
 
+    public ResourceBundleJob(Enum<?> key, ResourceBundle bundle) {
+        this(key.name(), bundle);
+    }
+
     public @Inject ResourceBundleJob(
             final @Context(ResourceBundleJob.class) String key,
             final @Context(ResourceBundleJob.class) ResourceBundle bundle) {

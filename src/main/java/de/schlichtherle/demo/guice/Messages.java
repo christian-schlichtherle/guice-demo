@@ -11,7 +11,9 @@ import java.util.ResourceBundle;
  *
  * @author Christian Schlichtherle
  */
-final class Messages {
+enum Messages {
+    beginPrint, endPrint;
+
     static final ResourceBundle
             bundle = ResourceBundle.getBundle(Messages.class.getName());
 }
