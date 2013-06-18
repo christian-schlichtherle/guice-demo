@@ -4,16 +4,21 @@
  */
 package de.schlichtherle.demo.guice;
 
+import de.schlichtherle.demo.guice.job.ResourceBundleJob;
+import de.schlichtherle.demo.guice.printer.Printer;
 import java.util.ResourceBundle;
 
 /**
- * Hosts a resource bundle with localized messages.
+ * Creates jobs for printing an object from a resource bundle which is keyed by
+ * its name.
  *
  * @author Christian Schlichtherle
  */
 enum Messages {
     beginPrint, endPrint;
 
-    static final ResourceBundle
+    private static final ResourceBundle
             bundle = ResourceBundle.getBundle(Messages.class.getName());
+
+    Printer.Job printerJob() { return new ResourceBundleJob(name(), bundle); }
 }
