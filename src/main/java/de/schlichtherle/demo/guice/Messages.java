@@ -9,8 +9,9 @@ import de.schlichtherle.demo.guice.printer.Printer;
 import java.util.ResourceBundle;
 
 /**
- * Creates jobs for printing an object from a resource bundle which is keyed by
- * its name.
+ * Creates jobs for printing application messages.
+ * The messages get lazily resolved from a private resource bundle which is
+ * keyed by the name of the enumeration instance.
  *
  * @author Christian Schlichtherle
  */
