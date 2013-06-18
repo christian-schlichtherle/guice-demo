@@ -22,44 +22,46 @@ import javax.inject.Provider;
 @Immutable
 public final class Bootstrap implements Callable<Void> {
 
-    private final Printer.Job _beginPrintJob = Messages.beginPrint.job();
-    private final Printer.Job _helloWorldJob = Messages.helloWorld.job();
-    private final Printer.Job _endPrintJob = Messages.endPrint.job();
+    private final Printer.Job $beginPrintJob = Messages.beginPrint.job();
+    private final Printer.Job $helloWorldJob = Messages.helloWorld.job();
+    private final Printer.Job $endPrintJob = Messages.endPrint.job();
 
     public static void main(String[] args) throws Exception {
         new Bootstrap().call();
     }
 
     @Override public Void call() throws Exception {
-        return _application().call();
+        return $application().call();
     }
 
-    Application _application() {
-        return new Application(_printer(), _printerJobProvider());
+    Application $application() {
+        return new Application($printer(), $printerJobProvider());
     }
 
-    Printer _printer() {
-        return new BanneredPrinter(_printerForBanneredPrinter(),
-                _printerJobNamedHeader(), _printerJobNamedFooter());
+    Printer $printer() {
+        return new BanneredPrinter($printerForBanneredPrinter(),
+                $printerJobNamedHeader(), $printerJobNamedFooter());
     }
 
-    Printer _printerForBanneredPrinter() {
-        return new CheckedPrinter(_printerForCheckedPrinter());
+    Printer $printerForBanneredPrinter() {
+        return new CheckedPrinter($printerForCheckedPrinter());
     }
 
-    Printer _printerForCheckedPrinter() {
-        return new StandardPrinter(_printStreamForStandardPrinter());
+    Printer $printerForCheckedPrinter() {
+        return new StandardPrinter($printStreamForStandardPrinter());
     }
 
-    PrintStream _printStreamForStandardPrinter() { return System.out; }
+    PrintStream $printStreamForStandardPrinter() { return System.out; }
 
-    Provider<Printer.Job> _printerJobProvider() {
+    Provider<Printer.Job> $printerJobProvider() {
         return new Provider<Printer.Job>() {
-            @Override public Printer.Job get() { return _printerJob(); }
+            @Override public Printer.Job get() { return $printerJob(); }
         };
     }
 
-    Printer.Job _printerJob() { return _helloWorldJob; }
-    Printer.Job _printerJobNamedHeader() { return _beginPrintJob; }
-    Printer.Job _printerJobNamedFooter() { return _endPrintJob; }
+    Printer.Job $printerJob() { return $helloWorldJob; }
+
+    Printer.Job $printerJobNamedHeader() { return $beginPrintJob; }
+
+    Printer.Job $printerJobNamedFooter() { return $endPrintJob; }
 }
