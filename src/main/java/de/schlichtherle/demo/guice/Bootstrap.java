@@ -32,9 +32,15 @@ public final class Bootstrap implements Callable<Void> {
         return new AbstractModule() {
             @Override protected void configure() {
                 bind(Printer.class).to(BanneredPrinter.class);
-                bind(Printer.class).annotatedWith(context(BanneredPrinter.class)).to(CheckedPrinter.class);
-                bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(StandardPrinter.class);
-                bind(PrintStream.class).annotatedWith(context(StandardPrinter.class)).toInstance(out);
+                bind(Printer.class)
+                        .annotatedWith(context(BanneredPrinter.class))
+                        .to(CheckedPrinter.class);
+                bind(Printer.class)
+                        .annotatedWith(context(CheckedPrinter.class))
+                        .to(StandardPrinter.class);
+                bind(PrintStream.class)
+                        .annotatedWith(context(StandardPrinter.class))
+                        .toInstance(out);
             }
 
             @Provides @Named("header") Printer.Job header() {
