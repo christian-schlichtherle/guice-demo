@@ -4,13 +4,14 @@
  */
 package de.schlichtherle.demo.guice;
 
-import com.google.inject.*;
-import static com.google.inject.name.Names.named;
-import static de.schlichtherle.demo.guice.inject.Contexts.context;
-import de.schlichtherle.demo.guice.printer.*;
-import java.io.*;
+import de.schlichtherle.demo.guice.printer.BanneredPrinter;
+import de.schlichtherle.demo.guice.printer.CheckedPrinter;
+import de.schlichtherle.demo.guice.printer.Printer;
+import de.schlichtherle.demo.guice.printer.StandardPrinter;
+import java.io.PrintStream;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
+import javax.inject.Provider;
 
 /**
  * Provides a {@link #main} method to configure Google Juice and start the
@@ -21,48 +22,44 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public final class Bootstrap implements Callable<Void> {
 
-    private final Injector injector = Guice.createInjector(
-            printerModule(System.out),
-            jobModule());
-
-    private static Module printerModule(final PrintStream out) {
-        return new AbstractModule() {
-            @Override protected void configure() {
-                bind(Printer.class).to(BanneredPrinter.class);
-                bind(Printer.class)
-                        .annotatedWith(context(BanneredPrinter.class))
-                        .to(CheckedPrinter.class);
-                bind(Printer.class)
-                        .annotatedWith(context(CheckedPrinter.class))
-                        .to(StandardPrinter.class);
-                bind(PrintStream.class)
-                        .annotatedWith(context(StandardPrinter.class))
-                        .toInstance(out);
-            }
-        };
-    }
-
-    private static Module jobModule() {
-        return new AbstractModule() {
-            @Override protected void configure() {
-                bind(Printer.Job.class).toInstance(Messages.helloWorld.job());
-                bind(Printer.Job.class).annotatedWith(named("header"))
-                        .toInstance(Messages.beginPrint.job());
-                bind(Printer.Job.class).annotatedWith(named("footer"))
-                        .toInstance(Messages.endPrint.job());
-            }
-        };
-    }
+    private final Printer.Job _beginPrintJob = Messages.beginPrint.job();
+    private final Printer.Job _helloWorldJob = Messages.helloWorld.job();
+    private final Printer.Job _endPrintJob = Messages.endPrint.job();
 
     public static void main(String[] args) throws Exception {
         new Bootstrap().call();
     }
 
     @Override public Void call() throws Exception {
-        return application().call();
+        return _application().call();
     }
 
-    private Application application() {
-        return injector.getInstance(Application.class);
+    Application _application() {
+        return new Application(_printer(), _printerJobProvider());
     }
+
+    Printer _printer() {
+        return new BanneredPrinter(_printerForBanneredPrinter(),
+                _printerJobNamedHeader(), _printerJobNamedFooter());
+    }
+
+    Printer _printerForBanneredPrinter() {
+        return new CheckedPrinter(_printerForCheckedPrinter());
+    }
+
+    Printer _printerForCheckedPrinter() {
+        return new StandardPrinter(_printStreamForStandardPrinter());
+    }
+
+    PrintStream _printStreamForStandardPrinter() { return System.out; }
+
+    Provider<Printer.Job> _printerJobProvider() {
+        return new Provider<Printer.Job>() {
+            @Override public Printer.Job get() { return _printerJob(); }
+        };
+    }
+
+    Printer.Job _printerJob() { return _helloWorldJob; }
+    Printer.Job _printerJobNamedHeader() { return _beginPrintJob; }
+    Printer.Job _printerJobNamedFooter() { return _endPrintJob; }
 }
