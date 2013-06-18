@@ -6,9 +6,10 @@ package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
+import de.schlichtherle.demo.guice.guicer.GuiceContext;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.printer.*;
-import java.io.*;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -24,39 +25,54 @@ import javax.inject.Named;
 @Immutable
 public final class Bootstrap implements Callable<Void> {
 
-    private final Injector injector = Guice.createInjector(
-            printerModule(System.out),
-            jobModule());
-
-    private static Module printerModule(final PrintStream out) {
-        return new AbstractModule() {
-            @Override protected void configure() {
-                bind(Printer.class).to(BanneredPrinter.class);
-                bind(Printer.class)
-                        .annotatedWith(context(BanneredPrinter.class))
-                        .to(CheckedPrinter.class);
-                bind(Printer.class)
-                        .annotatedWith(context(CheckedPrinter.class))
-                        .to(StandardPrinter.class);
-                bind(PrintStream.class)
-                        .annotatedWith(context(StandardPrinter.class))
-                        .toInstance(out);
-            }
-        };
-    }
+    private final Injector injector = new GuiceContext()
+            .injector()
+            .module()
+                .bind(Printer.class)
+                    .to(BanneredPrinter.class)
+                    .inject()
+                .bind(Printer.class)
+                    .annotatedWith(context(BanneredPrinter.class))
+                    .to(CheckedPrinter.class)
+                    .inject()
+                .bind(Printer.class)
+                    .annotatedWith(context(CheckedPrinter.class))
+                    .to(StandardPrinter.class)
+                    .inject()
+                .bind(PrintStream.class)
+                    .annotatedWith(context(StandardPrinter.class))
+                    .toInstance(System.out)
+                    .inject()
+                .inject()
+            .module()
+                .bind(Printer.Job.class)
+                    .to(TimeOfDayJob.class)
+                    .inject()
+                .bind(Printer.Job.class)
+                    .annotatedWith(named("header"))
+                    .toInstance(Messages.beginPrint.job())
+                    .inject()
+                .bind(Printer.Job.class)
+                    .annotatedWith(named("footer"))
+                    .toInstance(Messages.endPrint.job())
+                    .inject()
+                .bind(Locale.class)
+                    .toInstance(Locale.getDefault())
+                    .inject()
+                .bindConstant()
+                    .annotatedWith(named("duration"))
+                    .to(4)
+                    .inject()
+                .bindConstant().annotatedWith(named("interval"))
+                    .to(1)
+                    .inject()
+                .inject()
+            .module(jobModule())
+            .build();
 
     private static Module jobModule() {
-        return new AbstractModule() {
-            @Override protected void configure() {
-                bind(Printer.Job.class).to(TimeOfDayJob.class);
-                bind(Printer.Job.class).annotatedWith(named("header"))
-                        .toInstance(Messages.beginPrint.job());
-                bind(Printer.Job.class).annotatedWith(named("footer"))
-                        .toInstance(Messages.endPrint.job());
-                bind(Locale.class).toInstance(Locale.getDefault());
-                bindConstant().annotatedWith(named("duration")).to(4);
-                bindConstant().annotatedWith(named("interval")).to(1);
-            }
+        return new Module() {
+            @Override public void configure(Binder binder) { }
 
             @Provides TimeOfDayJob timeOfDayJob(
                     Provider<Date> clock,
