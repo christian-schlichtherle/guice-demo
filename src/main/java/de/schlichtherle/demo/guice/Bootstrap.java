@@ -47,7 +47,7 @@ public final class Bootstrap implements Callable<Void> {
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).toInstance(Messages.helloWorld.printerJob());
+                bind(Printer.Job.class).toInstance(Messages.helloWorld.job());
             }
         };
     }
