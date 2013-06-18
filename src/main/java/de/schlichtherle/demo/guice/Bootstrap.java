@@ -5,13 +5,10 @@
 package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
-import static com.google.inject.name.Names.named;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.job.*;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
-import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
@@ -54,23 +51,9 @@ public final class Bootstrap implements Callable<Void> {
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(TimeOfDayJob.class);
-                bind(Locale.class).toInstance(Locale.getDefault());
-                bindConstant().annotatedWith(named("duration")).to(4);
-                bindConstant().annotatedWith(named("interval")).to(1);
-            }
-
-            @Provides TimeOfDayJob timeOfDayJob(
-                    Provider<Date> clock,
-                    Locale locale,
-                    @Named("duration") int durationSeconds,
-                    @Named("interval") int intervalSeconds) {
-                return new TimeOfDayJob.Builder()
-                        .clock(clock)
-                        .locale(locale)
-                        .durationSeconds(durationSeconds)
-                        .intervalSeconds(intervalSeconds)
-                        .build();
+                bind(Printer.Job.class).to(ResourceBundleJob.class);
+                bindConstant().annotatedWith(context(ResourceBundleJob.class)).to("helloWorld");
+                bind(ResourceBundle.class).annotatedWith(context(ResourceBundleJob.class)).toInstance(Messages.bundle);
             }
         };
     }
