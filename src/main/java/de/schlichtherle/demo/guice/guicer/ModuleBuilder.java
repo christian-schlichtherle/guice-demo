@@ -25,36 +25,60 @@ implements Builder<Module>, Injection<Target> {
 
     public final <Type> TypeExposing<Type, ModuleBuilder<Target>> expose(
             Class<Type> clazz) {
-        return new TypeExposing<Type, ModuleBuilder<Target>>() {
-            @Override public ModuleBuilder<Target> inject() {
-                return ModuleBuilder.this.expose(this);
-            }
-        }.bind(clazz);
+        return new InstallableTypeExposing<Type>().bind(clazz);
     }
 
-    final ModuleBuilder<Target> expose(final Installable<PrivateBinder> exposing) {
+    private class InstallableTypeExposing<Type>
+    extends TypeExposing<Type, ModuleBuilder<Target>>
+    implements Installable<PrivateBinder> {
+        @Override public ModuleBuilder<Target> inject() {
+            return addExposing(this);
+        }
+
+        @Override public void installTo(PrivateBinder binder) {
+            super.installTo(binder);
+        }
+    }
+
+    final ModuleBuilder<Target> addExposing(final Installable<PrivateBinder> exposing) {
         exposings.add(exposing);
         return this;
     }
 
     public final <Type> TypeBinding<Type, ModuleBuilder<Target>> bind(
             Class<Type> clazz) {
-        return new TypeBinding<Type, ModuleBuilder<Target>>() {
-            @Override public ModuleBuilder<Target> inject() {
-                return ModuleBuilder.this.bind(this);
-            }
-        }.bind(clazz);
+        return new InstallableTypeBinding<Type>().bind(clazz);
+    }
+
+    private class InstallableTypeBinding<Type>
+    extends TypeBinding<Type, ModuleBuilder<Target>>
+    implements Installable<Binder> {
+        @Override public ModuleBuilder<Target> inject() {
+            return addBinding(this);
+        }
+
+        @Override public void installTo(Binder binder) {
+            super.installTo(binder);
+        }
     }
 
     public final <Type> ConstantBinding<Type, ModuleBuilder<Target>> bindConstant() {
-        return new ConstantBinding<Type, ModuleBuilder<Target>>() {
-            @Override public ModuleBuilder<Target> inject() {
-                return ModuleBuilder.this.bind(this);
-            }
-        };
+        return new InstallableConstantBinding<Type>();
     }
 
-    final ModuleBuilder<Target> bind(final Installable<Binder> binding) {
+    private class InstallableConstantBinding<Type>
+    extends ConstantBinding<Type, ModuleBuilder<Target>>
+    implements Installable<Binder> {
+        @Override public ModuleBuilder<Target> inject() {
+            return addBinding(this);
+        }
+
+        @Override public void installTo(Binder binder) {
+            super.installTo(binder);
+        }
+    }
+
+    final ModuleBuilder<Target> addBinding(final Installable<Binder> binding) {
         bindings.add(binding);
         return this;
     }

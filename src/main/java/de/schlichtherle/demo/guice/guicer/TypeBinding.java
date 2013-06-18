@@ -13,7 +13,7 @@ import com.google.inject.Binder;
 @SuppressWarnings("PackageVisibleField")
 public abstract class TypeBinding<Type, Target>
 extends Bindable<TypeBinding<Type, Target>, Type>
-implements Installable<Binder>, Injection<Target> {
+implements Injection<Target> {
 
     Class<? extends Type> implementation;
     Type instance;
@@ -28,7 +28,7 @@ implements Installable<Binder>, Injection<Target> {
         return this;
     }
 
-    @Override public final void installTo(final Binder binder) {
+    void installTo(final Binder binder) {
         if (null == instance) {
             if (null == annotation)
                 binder.bind(type).to(implementation);

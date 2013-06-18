@@ -14,7 +14,7 @@ import com.google.inject.binder.ConstantBindingBuilder;
 @SuppressWarnings("PackageVisibleField")
 public abstract class ConstantBinding<Type, Target>
 extends Annotatable<ConstantBinding<Type, Target>>
-implements Installable<Binder>, Injection<Target> {
+implements Injection<Target> {
 
     Type instance;
 
@@ -23,8 +23,8 @@ implements Installable<Binder>, Injection<Target> {
         return this;
     }
 
-    @Override@SuppressWarnings("unchecked")
-    public void installTo(final Binder binder) {
+    @SuppressWarnings("unchecked")
+    void installTo(final Binder binder) {
         final ConstantBindingBuilder
                 builder = binder.bindConstant().annotatedWith(annotation);
         if (instance instanceof Boolean) builder.to((Boolean) instance);

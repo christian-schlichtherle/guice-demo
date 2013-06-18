@@ -12,9 +12,9 @@ import com.google.inject.PrivateBinder;
  */
 public abstract class TypeExposing<Type, Target>
 extends Bindable<TypeExposing<Type, Target>, Type>
-implements Installable<PrivateBinder>, Injection<Target> {
+implements Injection<Target> {
 
-    @Override public final void installTo(final PrivateBinder binder) {
+    void installTo(final PrivateBinder binder) {
         if (null == annotation) binder.expose(type);
         else binder.expose(type).annotatedWith(annotation);
     }
