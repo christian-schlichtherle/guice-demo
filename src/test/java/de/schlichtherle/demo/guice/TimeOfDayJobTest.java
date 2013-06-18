@@ -2,7 +2,7 @@
  * Copyright (C) 2013 Schlichtherle IT Services.
  * All rights reserved. Use is subject to license terms.
  */
-package de.schlichtherle.demo.guice.job;
+package de.schlichtherle.demo.guice;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -334,7 +334,7 @@ public class TimeOfDayJobTest {
                 return cal.getTime();
             }
         };
-        this.job = new TimeOfDayJob(clock, locale);
+        this.job = new TimeOfDayJob(clock, locale, 0, 1);
         this.string = string;
     }
 

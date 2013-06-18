@@ -2,10 +2,10 @@
  * Copyright (C) 2013 Schlichtherle IT Services.
  * All rights reserved. Use is subject to license terms.
  */
-package de.schlichtherle.demo.guice.job;
+package de.schlichtherle.demo.guice;
 
 import de.schlichtherle.demo.guice.printer.Printer;
-import static de.schlichtherle.demo.guice.util.Objects.requireNonNull;
+import static de.schlichtherle.demo.guice.util.Objects.*;
 import java.io.PrintStream;
 import static java.lang.Integer.*;
 import java.text.*;
@@ -28,22 +28,36 @@ public final class TimeOfDayJob implements Printer.Job {
     private final Locale locale;
     private final ResourceBundle bundle;
 
-    public @Inject TimeOfDayJob(final Provider<Date> clock, final Locale locale) {
+    public @Inject TimeOfDayJob(
+            final Provider<Date> clock,
+            final Locale locale,
+            final @Named("duration") int duration,
+            final @Named("interval") int interval) {
         this.clock = requireNonNull(clock);
         this.locale = requireNonNull(locale);
         this.bundle = ResourceBundle.getBundle(TimeOfDayJob.class.getName(),
                 locale);
+        requireNonNegative(duration);
+        requirePositive(interval);
     }
+
+    private Locale locale() { return locale; }
 
     @Override public void renderTo(PrintStream out) {
-        out.println(timeOfDay());
+        final Object[] args = args(fields(dates()));
+        out.print(greeting(args));
+        out.print(looping(args));
     }
 
-    private String timeOfDay() {
-        return format(Message.message, args(fields(dates())));
+    private String greeting(Object[] args) {
+        return format(Message.greeting, args);
     }
 
-    private String[] args(final Object[] fields) {
+    private String looping(Object[] args) {
+        return format(Message.looping, args);
+    }
+
+    private Object[] args(final Object[] fields) {
         final String[] args = stringsFor(Message.args);
         for (int i = args.length; --i >= 0; )
             args[i] = replaceIntegersWithWords(format(args[i], fields));
@@ -68,7 +82,7 @@ public final class TimeOfDayJob implements Printer.Job {
 
     private String replaceIntegersWithWords(final String text) {
         final Matcher matcher = INTEGER_PATTERN.matcher(text);
-        final Format format = new TimeOfDayFormat(locale);
+        final Format format = new TimeOfDayFormat(locale());
         final StringBuffer result = new StringBuffer(text.length());
         while (matcher.find()) {
             matcher.appendReplacement(result, "");
@@ -87,7 +101,7 @@ public final class TimeOfDayJob implements Printer.Job {
     }
 
     private MessageFormat format(String pattern) {
-        return new MessageFormat(pattern, locale);
+        return new MessageFormat(pattern, locale());
     }
 
     private String[] stringsFor(Message message) {
@@ -99,7 +113,7 @@ public final class TimeOfDayJob implements Printer.Job {
     }
 
     private enum Message {
-        message, args, fields;
+        greeting, looping, args, fields;
 
         String[] stringsFrom(ResourceBundle bundle) {
             return new ResourceBundleMessage(bundle, this).toStrings();
