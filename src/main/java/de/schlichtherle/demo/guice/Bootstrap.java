@@ -10,7 +10,6 @@ import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.job.*;
 import de.schlichtherle.demo.guice.printer.*;
 import java.io.*;
-import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -28,54 +27,37 @@ import javax.inject.Named;
 public final class Bootstrap implements Callable<Void> {
 
     private final Injector injector = Guice.createInjector(
-            printerModule(new File("print.log"), System.out),
+            printerModule(System.out),
             jobModule());
 
-    private static Module printerModule(final File file, final PrintStream out) {
+    private static Module printerModule(final PrintStream out) {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.class).to(TeePrinter.class);
-                install(filePrinterModule(named("primary"), file));
-                install(standardPrinterModule(named("secondary"), out));
-            }
-        };
-    }
-
-    private static Module filePrinterModule(
-            final Annotation annotation,
-            final File file) {
-        return new PrivatePrinterModule() {
-            @Override protected void configure() {
-                expose(Printer.class).annotatedWith(annotation);
-                bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
-                bind(Printer.class).annotatedWith(context(BanneredPrinter.class)).to(CheckedPrinter.class);
-                bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(FilePrinter.class);
-                bind(File.class).annotatedWith(context(FilePrinter.class)).toInstance(file);
-                bindConstant().annotatedWith(named("append")).to(true);
-            }
-        };
-    }
-
-    private static Module standardPrinterModule(
-            final Annotation annotation,
-            final PrintStream out) {
-        return new PrivatePrinterModule() {
-            @Override protected void configure() {
-                expose(Printer.class).annotatedWith(annotation);
-                bind(Printer.class).annotatedWith(annotation).to(BanneredPrinter.class);
+                bind(Printer.class).to(BanneredPrinter.class);
                 bind(Printer.class).annotatedWith(context(BanneredPrinter.class)).to(CheckedPrinter.class);
                 bind(Printer.class).annotatedWith(context(CheckedPrinter.class)).to(StandardPrinter.class);
                 bind(PrintStream.class).annotatedWith(context(StandardPrinter.class)).toInstance(out);
             }
+
+            @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
+               return new ResourceBundleJob("beginPrint", bundle);
+            }
+
+            @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
+               return new ResourceBundleJob("endPrint", bundle);
+            }
+
+            @Provides ResourceBundle bundle() { return Messages.bundle; }
         };
     }
 
     private static Module jobModule() {
         return new AbstractModule() {
             @Override protected void configure() {
-                bind(Printer.Job.class).to(BufferedJob.class);
-                bind(Printer.Job.class).annotatedWith(context(BufferedJob.class)).to(TimeOfDayJob.class);
-                bindConstant().annotatedWith(named("initialCapacity")).to(1024);
+                bind(Printer.Job.class).to(TimeOfDayJob.class);
+                bind(Locale.class).toInstance(Locale.getDefault());
+                bindConstant().annotatedWith(named("duration")).to(4);
+                bindConstant().annotatedWith(named("interval")).to(1);
             }
 
             @Provides TimeOfDayJob timeOfDayJob(
@@ -90,12 +72,6 @@ public final class Bootstrap implements Callable<Void> {
                         .intervalSeconds(intervalSeconds)
                         .build();
             }
-
-            @Provides Locale locale() { return Locale.getDefault(); }
-
-            @Provides @Named("duration") int durationSeconds() { return 2; }
-
-            @Provides @Named("interval") int intervalSeconds() { return 1; }
         };
     }
 
@@ -107,18 +83,5 @@ public final class Bootstrap implements Callable<Void> {
 
     private Application main() {
         return injector.getInstance(Application.class);
-    }
-
-    private static abstract class PrivatePrinterModule extends PrivateModule {
-
-        @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
-           return new ResourceBundleJob("beginPrint", bundle);
-        }
-
-        @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
-           return new ResourceBundleJob("endPrint", bundle);
-        }
-
-        @Provides ResourceBundle bundle() { return Messages.bundle; }
     }
 }
