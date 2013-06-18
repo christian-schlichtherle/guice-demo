@@ -37,11 +37,11 @@ public final class Bootstrap implements Callable<Void> {
             }
 
             @Provides @Named("header") Printer.Job header(ResourceBundle bundle) {
-               return new ResourceBundleJob("beginPrint", bundle);
+               return new ResourceBundleJob(Messages.beginPrint, bundle);
             }
 
             @Provides @Named("footer") Printer.Job footer(ResourceBundle bundle) {
-               return new ResourceBundleJob("endPrint", bundle);
+               return new ResourceBundleJob(Messages.endPrint, bundle);
             }
 
             @Provides ResourceBundle bundle() { return Messages.bundle; }
