@@ -29,6 +29,7 @@ public final class TimeOfDayJob implements Printer.Job {
     private final int durationSeconds, intervalSeconds;
     private final ResourceBundle bundle;
 
+    @SuppressWarnings("AccessingNonPublicFieldOfAnotherObject")
     private TimeOfDayJob(final Builder builder) {
         this.clock = requireNonNull(builder.clock);
         this.locale = requireNonNull(builder.locale);

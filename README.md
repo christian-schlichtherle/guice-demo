@@ -8,7 +8,7 @@ The project provides interfaces and implementations for printers and jobs.
 Some implementations are decorators for printers which separate the content
 produced by print jobs and do some error checking.
 When bootstrapping, a Guice injector is configured which wires a print job
-for printing the localized time-of-the-day message to a decorated printer.
+for announcing the localized time-of-the-day message to a decorated printer.
 
 ## Building
 
@@ -26,7 +26,12 @@ After building, you can run the standalone JAR like this:
 For the UK, the output should be similar to this:
 
     ---------- BEGIN PRINT ----------
-    At the third stroke, it will be three fifty-nine and twenty-six seconds. BEEP, BEEP, BEEP.
+    Good morning.
+    At the third stroke, it will be eleven fifty-nine and three seconds. BEEP, BEEP, BEEP.
+    At the third stroke, it will be eleven fifty-nine and four seconds. BEEP, BEEP, BEEP.
+    At the third stroke, it will be eleven fifty-nine and five seconds. BEEP, BEEP, BEEP.
+    At the third stroke, it will be eleven fifty-nine and six seconds. BEEP, BEEP, BEEP.
+    At the third stroke, it will be eleven fifty-nine and seven seconds. BEEP, BEEP, BEEP.
     ----------  END PRINT  ----------
 
 You may notice that this message is similar to the messages of BT's popular
@@ -41,7 +46,12 @@ e.g. the following command:
 Telekom Zeitansage:
 
     ---------- DRUCK ANFANG ----------
-    Beim nächsten Ton ist es sechzehn Uhr, fünf Minuten und siebenundvierzig Sekunden. PIEP.
+    Guten Morgen.
+    Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und zehn Sekunden. PIEP.
+    Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und elf Sekunden. PIEP.
+    Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und zwölf Sekunden. PIEP.
+    Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und dreizehn Sekunden. PIEP.
+    Beim nächsten Ton ist es elf Uhr, neunundfünfzig Minuten und vierzehn Sekunden. PIEP.
     ----------  DRUCK ENDE  ----------
 
 ## License
