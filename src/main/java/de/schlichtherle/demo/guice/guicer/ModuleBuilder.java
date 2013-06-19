@@ -102,10 +102,10 @@ implements Builder<Module>, Injection<Target> {
     }
 
     final void installTo(final Binder binder) {
-        for (Module module : swapModules())
-            binder.install(module);
         for (Installable<Binder> binding : swapBindings())
             binding.installTo(binder);
+        for (Module module : swapModules())
+            binder.install(module);
     }
 
     @SuppressWarnings("ReturnOfCollectionOrArrayField")
