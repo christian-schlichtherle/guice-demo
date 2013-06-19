@@ -8,13 +8,14 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
+ * A builder for an {@link Injector}.
  *
  * @author Christian Schlichtherle
  */
-public class InjectorBuilder
+public final class InjectorBuilder
 extends ModuleContainer<InjectorBuilder>
 implements Builder<Injector> {
-    @Override public final Injector build() {
+    @Override public Injector build() {
         return Guice.createInjector(swapModules());
     }
 }

@@ -5,9 +5,13 @@
 package de.schlichtherle.demo.guice.guicer;
 
 /**
+ * Injects a dependency into some target.
  *
+ * @param  <Target> the type of the injection target which will be returned
+ *         from {@link #inject()}.
  * @author Christian Schlichtherle
  */
 public interface Injection<Target> {
+    /** Injects the dependency into the target and returns the target. */
     Target inject();
 }

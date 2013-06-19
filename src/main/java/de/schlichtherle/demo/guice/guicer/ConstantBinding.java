@@ -8,7 +8,11 @@ import com.google.inject.Binder;
 import com.google.inject.binder.ConstantBindingBuilder;
 
 /**
+ * A binding for a constant value.
  *
+ * @param  <Type> the type of the constant to build.
+ * @param  <Target> the type of the injection target which will be returned
+ *         from {@link #inject()}.
  * @author Christian Schlichtherle
  */
 @SuppressWarnings("PackageVisibleField")

@@ -13,7 +13,10 @@ import static de.schlichtherle.demo.guice.guicer.ModuleContainer.emptyList;
 import java.util.List;
 
 /**
+ * A builder for a {@link Module}.
  *
+ * @param  <Target> the type of the injection target which will be returned
+ *         from {@link #inject()}.
  * @author Christian Schlichtherle
  */
 public abstract class ModuleBuilder<Target>
@@ -30,7 +33,7 @@ implements Builder<Module>, Injection<Target> {
 
     private class InstallableTypeExposing<Type>
     extends TypeExposing<Type, ModuleBuilder<Target>>
-    implements Installable<PrivateBinder> {
+    implements Installable<PrivateBinder> { // not part of the DSL!
         @Override public ModuleBuilder<Target> inject() {
             return addExposing(this);
         }
@@ -52,7 +55,7 @@ implements Builder<Module>, Injection<Target> {
 
     private class InstallableTypeBinding<Type>
     extends TypeBinding<Type, ModuleBuilder<Target>>
-    implements Installable<Binder> {
+    implements Installable<Binder> { // not part of the DSL!
         @Override public ModuleBuilder<Target> inject() {
             return addBinding(this);
         }
@@ -68,7 +71,7 @@ implements Builder<Module>, Injection<Target> {
 
     private class InstallableConstantBinding<Type>
     extends ConstantBinding<Type, ModuleBuilder<Target>>
-    implements Installable<Binder> {
+    implements Installable<Binder> { // not part of the DSL!
         @Override public ModuleBuilder<Target> inject() {
             return addBinding(this);
         }
@@ -93,8 +96,8 @@ implements Builder<Module>, Injection<Target> {
             return new PrivateModule() {
                 @Override protected void configure() {
                     final PrivateBinder binder = binder();
-                    for (Installable<PrivateBinder> binding : exposings)
-                        binding.installTo(binder);
+                    for (Installable<PrivateBinder> exposing : exposings)
+                        exposing.installTo(binder);
                     installTo(binder);
                 }
             };

@@ -5,9 +5,14 @@
 package de.schlichtherle.demo.guice.guicer;
 
 import com.google.inject.Binder;
+import com.google.inject.Module;
 
 /**
+ * A declaration of a binding for a type for use in any {@link Module}.
  *
+ * @param  <Type> The type of the bindable type.
+ * @param  <Target> the type of the injection target which will be returned
+ *         from {@link #inject()}.
  * @author Christian Schlichtherle
  */
 @SuppressWarnings("PackageVisibleField")

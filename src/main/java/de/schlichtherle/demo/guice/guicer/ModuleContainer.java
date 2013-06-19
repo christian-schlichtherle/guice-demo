@@ -9,12 +9,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * A container for modules.
  *
+ * @param  <This> The type of {@code this} when returned from a chainable
+ *         method call.
+ *         Set this to the sub-class which you want to use with method chaining.
  * @author Christian Schlichtherle
  */
-public class ModuleContainer<This extends ModuleContainer<This>> {
+public abstract class ModuleContainer<This extends ModuleContainer<This>> {
 
     private List<Module> modules = emptyList();
+
+    ModuleContainer() { }
 
     static <T> List<T> emptyList() { return new LinkedList<T>(); }
 
