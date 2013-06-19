@@ -4,31 +4,29 @@
  */
 package de.schlichtherle.demo.guice.guicer;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
+import com.google.inject.*;
 
 /**
  * A declaration of a binding for a type for use in any {@link Module}.
  *
  * @param  <Type> The type of the bindable type.
- * @param  <Target> the type of the injection target which will be returned
- *         from {@link #inject()}.
+ * @param  <Parent> the type of the parent scope.
  * @author Christian Schlichtherle
  */
 @SuppressWarnings("PackageVisibleField")
-public abstract class TypeBinding<Type, Target>
-extends Bindable<TypeBinding<Type, Target>, Type>
-implements Injection<Target> {
+public abstract class TypeBinding<Type, Parent>
+extends Bindable<TypeBinding<Type, Parent>, Type>
+implements Injection<Parent> {
 
     Class<? extends Type> implementation;
     Type instance;
 
-    public final TypeBinding<Type, Target> to(final Class<? extends Type> implementation) {
+    public final TypeBinding<Type, Parent> to(final Class<? extends Type> implementation) {
         this.implementation = implementation;
         return this;
     }
 
-    public final TypeBinding<Type, Target> toInstance(final Type instance) {
+    public final TypeBinding<Type, Parent> toInstance(final Type instance) {
         this.instance = instance;
         return this;
     }

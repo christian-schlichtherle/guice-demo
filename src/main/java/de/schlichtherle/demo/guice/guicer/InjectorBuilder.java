@@ -4,8 +4,7 @@
  */
 package de.schlichtherle.demo.guice.guicer;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.google.inject.*;
 
 /**
  * A builder for an {@link Injector}.

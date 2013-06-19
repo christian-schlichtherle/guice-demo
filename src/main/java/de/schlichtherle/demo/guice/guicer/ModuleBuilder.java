@@ -4,37 +4,32 @@
  */
 package de.schlichtherle.demo.guice.guicer;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.PrivateBinder;
-import com.google.inject.PrivateModule;
+import com.google.inject.*;
 import static de.schlichtherle.demo.guice.guicer.ModuleContainer.emptyList;
 import java.util.List;
 
 /**
  * A builder for a {@link Module}.
  *
- * @param  <Target> the type of the injection target which will be returned
- *         from {@link #inject()}.
+ * @param  <Parent> the type of the parent scope.
  * @author Christian Schlichtherle
  */
-public abstract class ModuleBuilder<Target>
-extends ModuleContainer<ModuleBuilder<Target>>
-implements Builder<Module>, Injection<Target> {
+public abstract class ModuleBuilder<Parent>
+extends ModuleContainer<ModuleBuilder<Parent>>
+implements Builder<Module>, Injection<Parent> {
 
     private List<Installable<PrivateBinder>> exposings = emptyList();
     private List<Installable<Binder>> bindings = emptyList();
 
-    public final <Type> TypeExposing<Type, ModuleBuilder<Target>> expose(
+    public final <Type> TypeExposing<Type, ModuleBuilder<Parent>> expose(
             Class<Type> clazz) {
         return new InstallableTypeExposing<Type>().bind(clazz);
     }
 
     private class InstallableTypeExposing<Type>
-    extends TypeExposing<Type, ModuleBuilder<Target>>
+    extends TypeExposing<Type, ModuleBuilder<Parent>>
     implements Installable<PrivateBinder> { // not part of the DSL!
-        @Override public ModuleBuilder<Target> inject() {
+        @Override public ModuleBuilder<Parent> inject() {
             return addExposing(this);
         }
 
@@ -43,20 +38,21 @@ implements Builder<Module>, Injection<Target> {
         }
     }
 
-    final ModuleBuilder<Target> addExposing(final Installable<PrivateBinder> exposing) {
+    final ModuleBuilder<Parent> addExposing(
+            final Installable<PrivateBinder> exposing) {
         exposings.add(exposing);
         return this;
     }
 
-    public final <Type> TypeBinding<Type, ModuleBuilder<Target>> bind(
+    public final <Type> TypeBinding<Type, ModuleBuilder<Parent>> bind(
             Class<Type> clazz) {
         return new InstallableTypeBinding<Type>().bind(clazz);
     }
 
     private class InstallableTypeBinding<Type>
-    extends TypeBinding<Type, ModuleBuilder<Target>>
+    extends TypeBinding<Type, ModuleBuilder<Parent>>
     implements Installable<Binder> { // not part of the DSL!
-        @Override public ModuleBuilder<Target> inject() {
+        @Override public ModuleBuilder<Parent> inject() {
             return addBinding(this);
         }
 
@@ -65,14 +61,14 @@ implements Builder<Module>, Injection<Target> {
         }
     }
 
-    public final <Type> ConstantBinding<Type, ModuleBuilder<Target>> bindConstant() {
+    public final <Type> ConstantBinding<Type, ModuleBuilder<Parent>> bindConstant() {
         return new InstallableConstantBinding<Type>();
     }
 
     private class InstallableConstantBinding<Type>
-    extends ConstantBinding<Type, ModuleBuilder<Target>>
+    extends ConstantBinding<Type, ModuleBuilder<Parent>>
     implements Installable<Binder> { // not part of the DSL!
-        @Override public ModuleBuilder<Target> inject() {
+        @Override public ModuleBuilder<Parent> inject() {
             return addBinding(this);
         }
 
@@ -81,7 +77,7 @@ implements Builder<Module>, Injection<Target> {
         }
     }
 
-    final ModuleBuilder<Target> addBinding(final Installable<Binder> binding) {
+    final ModuleBuilder<Parent> addBinding(final Installable<Binder> binding) {
         bindings.add(binding);
         return this;
     }

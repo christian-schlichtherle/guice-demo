@@ -11,18 +11,17 @@ import com.google.inject.binder.ConstantBindingBuilder;
  * A binding for a constant value.
  *
  * @param  <Type> the type of the constant to build.
- * @param  <Target> the type of the injection target which will be returned
- *         from {@link #inject()}.
+ * @param  <Parent> the type of the parent scope.
  * @author Christian Schlichtherle
  */
 @SuppressWarnings("PackageVisibleField")
-public abstract class ConstantBinding<Type, Target>
-extends Annotatable<ConstantBinding<Type, Target>>
-implements Injection<Target> {
+public abstract class ConstantBinding<Type, Parent>
+extends Annotatable<ConstantBinding<Type, Parent>>
+implements Injection<Parent> {
 
     Type instance;
 
-    public final ConstantBinding<Type, Target> to(final Type instance) {
+    public final ConstantBinding<Type, Parent> to(final Type instance) {
         this.instance = instance;
         return this;
     }

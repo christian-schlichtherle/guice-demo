@@ -7,11 +7,10 @@ package de.schlichtherle.demo.guice.guicer;
 /**
  * Injects a dependency into some target.
  *
- * @param  <Target> the type of the injection target which will be returned
- *         from {@link #inject()}.
+ * @param  <Parent> the type of the parent scope.
  * @author Christian Schlichtherle
  */
-public interface Injection<Target> {
-    /** Injects the dependency into the target and returns the target. */
-    Target inject();
+public interface Injection<Parent> {
+    /** Injects the dependency into the parent scope and returns control to it. */
+    Parent inject();
 }

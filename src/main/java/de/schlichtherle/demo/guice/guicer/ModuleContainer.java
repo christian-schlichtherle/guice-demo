@@ -5,8 +5,7 @@
 package de.schlichtherle.demo.guice.guicer;
 
 import com.google.inject.Module;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * A container for modules.

@@ -4,20 +4,19 @@
  */
 package de.schlichtherle.demo.guice.guicer;
 
-import com.google.inject.PrivateBinder;
+import com.google.inject.*;
 
 /**
  * A declaration of an exposing of a binding for a type in a
  * {@link PrivateModule}.
  *
  * @param  <Type> The type of the bindable type.
- * @param  <Target> the type of the injection target which will be returned
- *         from {@link #inject()}.
+ * @param  <Parent> the type of the parent scope.
  * @author Christian Schlichtherle
  */
-public abstract class TypeExposing<Type, Target>
-extends Bindable<TypeExposing<Type, Target>, Type>
-implements Injection<Target> {
+public abstract class TypeExposing<Type, Parent>
+extends Bindable<TypeExposing<Type, Parent>, Type>
+implements Injection<Parent> {
 
     void installTo(final PrivateBinder binder) {
         if (null == annotation) binder.expose(type);
