@@ -21,7 +21,6 @@
         </breadcrumbs>
         <menu name="Documentation">
             <item name="Introduction" href="index.html"/>
-            <item name="The Guicer DSL" href="guicer.html"/>
         </menu>
         <menu name="Reports" ref="reports" inherit="bottom"/>
     </body>
