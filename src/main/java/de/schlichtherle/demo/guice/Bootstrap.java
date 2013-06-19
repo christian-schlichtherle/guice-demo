@@ -81,7 +81,7 @@ public final class Bootstrap implements Callable<Void> {
         return application().call();
     }
 
-    private Application application() {
+    private Callable<Void> application() {
         return injector.getInstance(Application.class);
     }
 }
