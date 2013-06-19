@@ -1,0 +1,614 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <link href="./css/prettify.css" type="text/css" rel="stylesheet"/>
+    <script src="./js/prettify.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Guice Demo -   Introduction</title>
+    <style type="text/css" media="all">
+      @import url("./css/site.css");
+    </style>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print"/>
+    <meta name="Date-Revision-yyyymmdd" content="20130619"/>
+    <meta http-equiv="Content-Language" content="en"/>
+                    
+  </head>
+  <body class="composite" onload="prettyPrint()">
+    <div id="banner">
+                    <div id="bannerLeft">
+                Guice Demo
+                </div>
+                            <div class="clear"><hr/></div>
+    </div>
+    <div id="breadcrumbs">
+            
+                                  <div class="xleft">
+        <span id="projectVersion">Version: 0.1-SNAPSHOT</span>
+                  |                         <a href="index.html" title="Guice Demo">Guice Demo</a>
+      &raquo;
+          Introduction
+              </div>
+            <div class="xright">        
+                        </div>
+      <div class="clear"><hr/></div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+              
+                                                   <h5>Documentation</h5>
+                  <ul>
+                  <li class="none">
+            <strong>Introduction</strong>
+          </li>
+          </ul>
+                       <h5>Reports</h5>
+                  <ul>
+                                                                                                                                                                                                                                                                                                                        <li class="expanded">
+                          <a href="project-info.html" title="Project Information">Project Information</a>
+                    <ul>
+                      <li class="none">
+            <strong>About</strong>
+          </li>
+                      <li class="none">
+                          <a href="plugin-management.html" title="Plugin Management">Plugin Management</a>
+            </li>
+                      <li class="none">
+                          <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
+            </li>
+                      <li class="none">
+                          <a href="dependency-info.html" title="Dependency Information">Dependency Information</a>
+            </li>
+                      <li class="none">
+                          <a href="source-repository.html" title="Source Repository">Source Repository</a>
+            </li>
+                      <li class="none">
+                          <a href="mail-lists.html" title="Mailing Lists">Mailing Lists</a>
+            </li>
+                      <li class="none">
+                          <a href="issue-tracking.html" title="Issue Tracking">Issue Tracking</a>
+            </li>
+                      <li class="none">
+                          <a href="integration.html" title="Continuous Integration">Continuous Integration</a>
+            </li>
+                      <li class="none">
+                          <a href="plugins.html" title="Project Plugins">Project Plugins</a>
+            </li>
+                      <li class="none">
+                          <a href="license.html" title="Project License">Project License</a>
+            </li>
+                      <li class="none">
+                          <a href="dependency-management.html" title="Dependency Management">Dependency Management</a>
+            </li>
+                      <li class="none">
+                          <a href="team-list.html" title="Project Team">Project Team</a>
+            </li>
+                      <li class="none">
+                          <a href="project-summary.html" title="Project Summary">Project Summary</a>
+            </li>
+                      <li class="none">
+                          <a href="dependencies.html" title="Dependencies">Dependencies</a>
+            </li>
+              </ul>
+        </li>
+          </ul>
+                                              
+                              </div>
+    </div>
+    <div id="bodyColumn" class="content">
+      <div id="contentBox">
+                                      <p></p>
+<div class="section">
+<h2>Introduction<a name="Introduction"></a></h2>
+<p>In this (fairly long) article, I am going to discuss a standalone demo for <a class="externalLink" href="http://code.google.com/p/google-guice/">Guice</a>, Google&#x2019;s lightweight dependency injection framework. The source code repository for this demo is available on GitHub at <a class="externalLink" href="https://github.com/christian-schlichtherle/guice-demo">https://github.com/christian-schlichtherle/guice-demo</a>.</p>
+<div class="section">
+<h3>Motivation<a name="Motivation"></a></h3>
+<p>For the purpose of this demonstration, let&#x2019;s forget about the package <tt>javax.print</tt> in the Java SE API and suppose you wanted to write a library which enables printing of dynamically created content to arbitrary printers. This could be a weather forecast report, a time-of-day announcement or just a hello-world message - whatever you can imagine.</p></div>
+<div class="section">
+<h3>Demo Applications<a name="Demo_Applications"></a></h3>
+<div class="section">
+<h4>Hello World!<a name="Hello_World"></a></h4>
+<p>In order to keep this article short, the source code repository contains a branch named <tt>hello-world</tt>. When build from this branch, the demo application will print an internationalized hello-world message to the standard output. The message will be decorated with a small header and footer to set it apart from other print jobs.</p>
+<p>Localizations exist for English and German. Here&#x2019;s how the application&#x2019;s output looks like in English:</p>
+
+<div class="source">
+<pre>---------- BEGIN PRINT ----------
+Hello world!
+----------  END PRINT  ----------
+</pre></div>
+<p>Here&#x2019;s how the application&#x2019;s output looks like in German:</p>
+
+<div class="source">
+<pre>---------- DRUCK ANFANG ----------
+Hallo Welt!
+----------  DRUCK ENDE  ----------
+</pre></div></div>
+<div class="section">
+<h4>Time Of Day<a name="Time_Of_Day"></a></h4>
+<p>Because nobody needs a printer library just for printing a hello-world message, the <tt>master</tt> branch of the source code repository contains a demo application which will announce the current time-of-day consecutively for five seconds at intervals of one second. Like the hello-world demo application, the announcement message is internationalized and will be decorated with a small header and footer to set it apart from other print jobs.</p>
+<p>Localizations exist for the UK, USA and Germany. Here&#x2019;s how the application&#x2019;s output looks like for the UK:</p>
+
+<div class="source">
+<pre>---------- BEGIN PRINT ----------
+Good afternoon.
+At the third stroke, it will be one thirty-one and fifty-six seconds. BEEP, BEEP, BEEP.
+At the third stroke, it will be one thirty-one and fifty-seven seconds. BEEP, BEEP, BEEP.
+At the third stroke, it will be one thirty-one and fifty-eight seconds. BEEP, BEEP, BEEP.
+At the third stroke, it will be one thirty-one and fifty-nine seconds. BEEP, BEEP, BEEP.
+At the third stroke, it will be one thirty-two precisely. BEEP, BEEP, BEEP.
+----------  END PRINT  ----------
+</pre></div>
+<p>You may notice that this text is similar to the text of BT&#x2019;s popular <a class="externalLink" href="http://en.wikipedia.org/wiki/Speaking_clock">Speaking Clock</a>. Here&#x2019;s another example, this time similar to the text of Deutsche Telekom Zeitansage:</p>
+
+<div class="source">
+<pre>---------- DRUCK ANFANG ----------
+Guten Tag.
+Beim n&#xe4;chsten Ton ist es dreizehn Uhr, zweiunddrei&#xdf;ig Minuten und sieben Sekunden. PIEP.
+Beim n&#xe4;chsten Ton ist es dreizehn Uhr, zweiunddrei&#xdf;ig Minuten und acht Sekunden. PIEP.
+Beim n&#xe4;chsten Ton ist es dreizehn Uhr, zweiunddrei&#xdf;ig Minuten und neun Sekunden. PIEP.
+Beim n&#xe4;chsten Ton ist es dreizehn Uhr, zweiunddrei&#xdf;ig Minuten und zehn Sekunden. PIEP.
+Beim n&#xe4;chsten Ton ist es dreizehn Uhr, zweiunddrei&#xdf;ig Minuten und elf Sekunden. PIEP.
+----------  DRUCK ENDE  ----------
+</pre></div>
+<p>For fun, you can easily add other localizations. Please send me a pull request if you do, so that I can add it to the code base. I am looking forward to it.</p></div></div>
+<div class="section">
+<h3>Requirements<a name="Requirements"></a></h3>
+<p>Even agile demo projects have some (concise) requirements, so here&#x2019;s what needs to be done.</p>
+<div class="section">
+<h4>Printers<a name="Printers"></a></h4>
+<p>To be useful at all, the library needs to provide some ready-made printers. Here are some implementations I can imagine from the top of my head:</p>
+
+<ul>
+  
+<li>Print the contents to standard output.</li>
+  
+<li>Append the contents to a file.</li>
+  
+<li>Send an email with the contents embedded or attached.</li>
+  
+<li>Print the contents to a real printer.</li>
+  
+<li>Queue the contents for later reuse.</li>
+  
+<li>Log some events when printing for post-mortem analysis.</li>
+  
+<li>Do any combination of the above.</li>
+</ul>
+<p>As you can see, the library needs to define some interface or class for printers.</p></div>
+<div class="section">
+<h4>Contents and Jobs<a name="Contents_and_Jobs"></a></h4>
+<p>Obviously, print contents need to be provided by the application. Some typical requirements are:</p>
+
+<ul>
+  
+<li>Contents may need to be rendered dynamically:</li>
+  
+<li>A weather forecast report needs to be composed of lots of data from different information systems.</li>
+  
+<li>A time of day announcement needs to be up-to-date whenever it gets rendered.</li>
+  
+<li>Contents may need to be rendered on demand by multiple parties, e.g. the  application may want to re-render them later or a printer may want to  render them to multiple output channels.</li>
+</ul>
+<p>In order to support all these requirements, the rendering of some content to an output channel needs to be encapsulated in another interface or class for print jobs.</p></div></div>
+<div class="section">
+<h3>Design Goals<a name="Design_Goals"></a></h3>
+<p>The library should apply the <a class="externalLink" href="http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)">SOLID</a> design principles so that we can easily compose it&#x2019;s components into many different solutions and add new features without ever needing to change the library.</p></div>
+<div class="section">
+<h3>The Semantic Model<a name="The_Semantic_Model"></a></h3>
+<p>Considering the requirements, the following interface definition should appear to be no surprise to you:</p>
+
+<div class="source">
+<pre>public interface Printer {
+    void print(Job job) throws IOException;
+    interface Job { void renderTo(PrintStream out); }
+}
+</pre></div>
+<p>The <tt>Printer</tt> interface provides a single method to print a job, which is represented by the nested <tt>Job</tt> interface. In turn, the <tt>Job</tt> interface provides a single method to render some content to the given <tt>PrintStream</tt>.</p>
+
+<blockquote>
+<p>I have removed some of the original boilerplate code for this article in order to keep the code samples concise. If you are interested in package declarations, import statements etc. then please check out the <a class="externalLink" href="http://github.com/christian-schlichtherle/guice-demo">source code repository</a> from GitHub.</p>
+</blockquote>
+<p>You may ask yourself where the object for the <tt>PrintStream</tt> parameter shall come from when calling the <tt>renderTo</tt> method of the <tt>Job</tt> interface: The print stream needs to be provided by the printer when submitting the job to its <tt>print</tt> method. Because the printer &#x201c;loans&#x201d; the print stream to the job for rendering, this is also known as the Loan Pattern. Note that the job must not hold any references to the print stream after returning from it&#x2019;s <tt>renderTo</tt> method.</p>
+
+<blockquote>
+<p>In the end, you always need to pay back your loans. To your relief however, no interest is required in this case.</p>
+</blockquote></div>
+<div class="section">
+<h3>Standalone Implementations for Printers<a name="Standalone_Implementations_for_Printers"></a></h3>
+<p>The library provides two standalone implementations for printers:</p>
+
+<ul>
+  
+<li><tt>de.schlichtherle.demo.guice.printer.FilePrinter</tt>  prints jobs to a file.</li>
+  
+<li><tt>de.schlichtherle.demo.guice.printer.StandardPrinter</tt>  prints jobs to a print stream.</li>
+</ul>
+<div class="section">
+<h4><tt>StandardPrinter</tt><a name="StandardPrinter"></a></h4>
+<p>For the brevity of this article, I&#x2019;ll only discuss the <tt>StandardPrinter</tt> class:</p>
+
+<blockquote>
+<p>Again, please check out the <a class="externalLink" href="http://github.com/christian-schlichtherle/guice-demo">source code repository</a> if you&#x2019;re interested in the source code for the <tt>FilePrinter</tt>.</p>
+</blockquote>
+
+<div class="source">
+<pre>@Immutable
+public final class StandardPrinter implements Printer {
+
+    private final PrintStream out;
+
+    public @Inject StandardPrinter(
+            final @Context(StandardPrinter.class) PrintStream out) {
+        this.out = Objects.requireNonNull(out);
+    }
+
+    @Override public void print(Job job) throws IOException {
+        job.renderTo(out);
+    }
+}
+</pre></div>
+<p>Note that the <tt>PrintStream</tt> dependency gets injected via the constructor. As a benefit of this, the class is immutable, and hence thread-safe. To document this, I have added the <tt>javax.annotation.concurrent.Immutable</tt> annotation from FindBugs. Now FindBugs should warn me whenever I would change the code so that this class invariant is broken.</p>
+<p>As another benefit, I can easily unit test the class with <a class="externalLink" href="http://code.google.com/p/mockito/">Mockito</a> like this:</p>
+
+<div class="source">
+<pre>public class StandardPrinterTest {
+
+    @Test public void testPrint() throws IOException {
+        final PrintStream out = mock(PrintStream.class);
+        final Printer printer = new StandardPrinter(out);
+        final Printer.Job job = mock(Printer.Job.class);
+
+        printer.print(job);
+
+        verify(job).renderTo(out);
+        verifyNoMoreInteractions(job);
+        verifyZeroInteractions(out);
+    }
+}
+</pre></div>
+<div class="section">
+<h5>The Case Against Private Field Injection<a name="The_Case_Against_Private_Field_Injection"></a></h5>
+<p>Note that I don&#x2019;t need any dependency injection framework to use or test this class! For comparison, consider the following code variant which uses private field injection:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class StandardPrinter implements Printer {
+
+    private @Inject PrintStream out;
+
+    @Override public void print(Job job) throws IOException {
+        job.renderTo(out);
+    }
+}
+</pre></div>
+<p>This variant saves writing some boilerplate code for the constructor. However, at a considerable cost: Now I <i>must use</i> a dependency injection framework (or use reflection) whenever I need a <tt>StandardPrinter</tt>, so it has been added as an implicit dependency of this class!</p>
+<p>Let&#x2019;s see how this implicit dependency would affect my unit test code:</p>
+
+<div class="source">
+<pre>public class StandardPrinterTest {
+
+    private final PrintStream out = mock(PrintStream.class);
+    private final Injector injector = Guice.createInjector(module());
+
+    private Module module() {
+        return new AbstractModule() {
+            @Override protected void configure() {
+                bind(PrintStream.class).toInstance(out);
+            }
+        };
+    }
+
+    @Test public void testPrint() throws IOException {
+        final Printer printer = injector.getInstance(StandardPrinter.class);
+        final Printer.Job job = mock(Printer.Job.class);
+
+        printer.print(job);
+
+        verify(job).renderTo(out);
+        verifyNoMoreInteractions(job);
+        verifyZeroInteractions(out);
+    }
+}
+</pre></div>
+<p>To me, the private field injection doesn&#x2019;t carry it&#x2019;s own weight. So my general advice is: <b>Don&#x2019;t use private field injection!</b></p>
+<p>You may ask why you should even bother, because - as you certainly have noticed - there are two annotations in the original code already which are related to a dependency injection framework:</p>
+
+<ul>
+  
+<li><tt>javax.inject.Inject</tt>:  This is a hint to the dependency injection framework <i>where</i> to inject the  dependencies of this class.  This annotation is defined in the package <tt>javax.inject</tt>, which has been  defined in <a class="externalLink" href="http://jcp.org/en/jsr/detail?id=330">JSR-330</a> and does not depend on Guice.</li>
+  
+<li><tt>de.schlichtherle.demo.guice.inject.Context</tt>:  This is a hint to the dependency injection framework <i>what</i> to inject into  this class.  This annotation has been defined within the library and does not depend on  any dependency injection framework.  However, as we&#x2019;ll see later, the module configuration for Guice will depend  on this annotation.</li>
+</ul>
+<p>As you can see, this class has no dependencies on any dependency injection framework. As a benefit, I can easily unit test the class or swap the dependency injection framework anytime.</p></div></div></div>
+<div class="section">
+<h3>Decorator Implementations for Printers<a name="Decorator_Implementations_for_Printers"></a></h3>
+<p>In addition to standalone implementations, the library also provides some decorator implementations for printers:</p>
+
+<ul>
+  
+<li><tt>de.schlichtherle.demo.guice.printer.BanneredPrinter</tt>  decorates print jobs with a header and a footer job.</li>
+  
+<li><tt>de.schlichtherle.demo.guice.printer.CheckedPrinter</tt>  flushes the print stream and checks its status after printing each job.  If an error occured while printing, an <tt>IOException</tt> gets thrown  (note that <tt>PrintStream</tt> doesn&#x2019;t throw an <tt>IOException</tt>).</li>
+  
+<li><tt>de.schlichtherle.demo.guice.printer.TeePrinter</tt>  prints each job to two printers.  If a job&#x2019;s content is dynamically rendered, then the two printers may  produce different output.</li>
+</ul>
+<div class="section">
+<h4><tt>BanneredPrinter</tt><a name="BanneredPrinter"></a></h4>
+<p>Of these three, I&#x2019;ll only discuss the <tt>BanneredPrinter</tt>:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class BanneredPrinter implements Printer {
+
+    private final Printer printer;
+    private final Job header, footer;
+
+    public @Inject BanneredPrinter(
+            final @Context(BanneredPrinter.class) Printer printer,
+            final @Named(&quot;header&quot;) Job header,
+            final @Named(&quot;footer&quot;) Job footer) {
+        this.printer = requireNonNull(printer);
+        this.header = requireNonNull(header);
+        this.footer = requireNonNull(footer);
+    }
+
+    @Override public final void print(final Job job) throws IOException {
+        printer.print(new Job() {
+            @Override public void renderTo(final PrintStream out) {
+                header.renderTo(out);
+                job.renderTo(out);
+                footer.renderTo(out);
+            }
+        });
+    }
+}
+</pre></div>
+<p>Again, a constructor is used to inject the dependencies into this class and validate them, hence the class is immutable again. This time however, I am also using the <tt>javax.inject.Named</tt> annotation in order to disambiguate the two Jobs for the header and printer. I&#x2019;ll use this annotation later when configuring the Guice module.</p>
+<p>When printing, the printer substitutes the given job with a custom job which first renders the header job, then the delegate job and then the footer job. Note that because jobs may render dynamic content, this enables to produce different output on each invocation. For example, the header job may include the current time in its output to the print stream.</p></div></div>
+<div class="section">
+<h3>Standalone Implementations for Jobs<a name="Standalone_Implementations_for_Jobs"></a></h3>
+<p>The library provides a single standalone implementation for jobs:</p>
+
+<ul>
+  
+<li><tt>de.schlichtherle.demo.guice.job.ResourceBundleJob</tt>:  Prints some localized content to a given stream.  The localized content gets lazily resolved by looking up a key in a resource  bundle.</li>
+</ul>
+<p>Here is its source code:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class ResourceBundleJob implements Printer.Job {
+
+    private final String key;
+    private final ResourceBundle bundle;
+
+    public @Inject ResourceBundleJob(
+            final @Context(ResourceBundleJob.class) String key,
+            final @Context(ResourceBundleJob.class) ResourceBundle bundle) {
+        this.key = requireNonNull(key);
+        this.bundle = requireNonNull(bundle);
+    }
+
+    @Override public void renderTo(PrintStream out) { out.print(content()); }
+
+    private Object content() { return bundle.getObject(key); }
+}
+</pre></div>
+<p>When wiring together the demo application, this class will be used with the <tt>BanneredPrinter</tt> in order to print a localized header and footer.</p></div>
+<div class="section">
+<h3>Decorators for Jobs<a name="Decorators_for_Jobs"></a></h3>
+<p>In addition to standalone implementations, the library also provides a single decorator implementation for printers:</p>
+
+<ul>
+  
+<li><tt>de.schlichtherle.demo.guice.job.BufferedJob</tt>:  Buffers the rendered content for subsequent re-use so that the delegate job  is only told once to render its content.</li>
+</ul>
+<p>The source code is not shown here because it&#x2019;s not used in the hello-world demo application.</p></div>
+<div class="section">
+<h3>Custom Annotation<a name="Custom_Annotation"></a></h3>
+<div class="section">
+<h4><tt>Context</tt><a name="Context"></a></h4>
+<p>The library provides the single annotation <tt>de.schlichtherle.demo.guice.inject.Context</tt>:</p>
+
+<div class="source">
+<pre>@Qualifier
+@Target({ FIELD, PARAMETER })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Context { Class&lt;?&gt; value(); }
+</pre></div>
+<p>Note that this annotation has been annotated with <tt>javax.inject.Qualifier</tt>. This is a hint to some dependency injection frameworks that this annotation should be used to disambiguate dependencies when resolving bindings.</p></div>
+<div class="section">
+<h4><tt>Contexts</tt><a name="Contexts"></a></h4>
+<p>In addition to the annotation, there is also a small utility class named <tt>de.schlichtherle.demo.guice.inject.Context</tt>. It contains a single public utility method:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class Contexts {
+
+    public static Context context(Class&lt;?&gt; clazz) {
+        return ...
+    }
+}
+</pre></div>
+<p>The <tt>context</tt> method returns an instance of the context annotation with the given class as it&#x2019;s value. This will be used when wiring the bindings in the Guice modules.</p></div></div>
+<div class="section">
+<h3>The Hello-World Demo Application<a name="The_Hello-World_Demo_Application"></a></h3>
+<p>The hello-world demo application consists of the following classes:</p>
+
+<ul>
+  
+<li><tt>de.schlichtherle.demo.guice.Application</tt>:  When called, this application prints a lazily resolved job to a printer.</li>
+  
+<li><tt>de.schlichtherle.demo.guice.Bootstrap</tt>:  Provides a main-method to configure Google Juice and start the application.</li>
+  
+<li><tt>de.schlichtherle.demo.guice.Messages</tt>:  Creates jobs for printing application messages.  The messages get lazily resolved from a private resource bundle which is  keyed by the name of the enumeration instance.</li>
+</ul>
+<div class="section">
+<h4><tt>Application</tt><a name="Application"></a></h4>
+<p>The source code is straightforward:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class Application implements Callable&lt;Void&gt; {
+
+    private final Printer printer;
+    private final Provider&lt;Printer.Job&gt; jobProvider;
+
+    public @Inject Application(
+            final Printer printer,
+            final Provider&lt;Printer.Job&gt; jobProvider) {
+        this.printer = requireNonNull(printer);
+        this.jobProvider = requireNonNull(jobProvider);
+    }
+
+    @Override public Void call() throws IOException {
+        printer.print(jobProvider.get());
+        return null;
+    }
+}
+</pre></div>
+<p>As you can see, the printer and a job provider get injected to the constructor. This enables to resolve the print job lazily upon each call to <tt>call</tt>. Depending on the provider implementation, a different job may get printed each time.</p></div>
+<div class="section">
+<h4><tt>Messages</tt><a name="Messages"></a></h4>
+<p>This class encapsulates the messages of the application. Because these neither belong to <tt>Application</tt> nor <tt>Bootstrap</tt>, a separate enum class is justified.</p>
+
+<div class="source">
+<pre>@Immutable
+enum Messages {
+    beginPrint, helloWorld, endPrint;
+
+    private static final ResourceBundle
+            bundle = ResourceBundle.getBundle(Messages.class.getName());
+
+    Printer.Job job() { return new ResourceBundleJob(name(), bundle); }
+}
+</pre></div>
+<p>This enum class defines three instances which get presented as print jobs on a call to <tt>job</tt>.</p></div>
+<div class="section">
+<h4><tt>Bootstrap</tt><a name="Bootstrap"></a></h4>
+<p>We are finally set to configure the binding of the components with Guice and bootstrap the application:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class Bootstrap implements Callable&lt;Void&gt; {
+
+    private final Injector injector = Guice.createInjector(
+            printerModule(System.out),
+            jobModule());
+
+    private static Module printerModule(final PrintStream out) {
+        return new AbstractModule() {
+            @Override protected void configure() {
+                bind(Printer.class).to(BanneredPrinter.class);
+                bind(Printer.class)
+                        .annotatedWith(context(BanneredPrinter.class))
+                        .to(CheckedPrinter.class);
+                bind(Printer.class)
+                        .annotatedWith(context(CheckedPrinter.class))
+                        .to(StandardPrinter.class);
+                bind(PrintStream.class)
+                        .annotatedWith(context(StandardPrinter.class))
+                        .toInstance(out);
+            }
+        };
+    }
+
+    private static Module jobModule() {
+        return new AbstractModule() {
+            @Override protected void configure() {
+                bind(Printer.Job.class).toInstance(Messages.helloWorld.job());
+                bind(Printer.Job.class).annotatedWith(named(&quot;header&quot;))
+                        .toInstance(Messages.beginPrint.job());
+                bind(Printer.Job.class).annotatedWith(named(&quot;footer&quot;))
+                        .toInstance(Messages.endPrint.job());
+            }
+        };
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Bootstrap().call();
+    }
+
+    @Override public Void call() throws Exception {
+        return application().call();
+    }
+
+    private Callable&lt;Void&gt; application() {
+        return injector.getInstance(Application.class);
+    }
+}
+</pre></div>
+<p>The main-method simply creates a new instance of this class and runs its <tt>call</tt> method. In turn, the <tt>call</tt> method creates a new instance of the <tt>Application</tt> class and calls it&#x2019;s <tt>call</tt> method again. The <tt>Application</tt> object gets created by the Guice injector. This, in turn, uses the configuration as defined by the implicit constructor of this class.</p>
+<p>Let&#x2019;s have a closer look at the creation of the Guice injector: As you can see it gets configured with two modules, one for printers and one for jobs. Although this is not strictly necessary for this simple application, it&#x2019;s a natural split and will help to keep the configuration comprehensible in a larger application.</p>
+<p>The job module binds any unqualified injection point of the type <tt>Printer.Job</tt> to the instance obtained by calling <tt>Messages.helloWorld.job()</tt>. An unqualified injection point is an injection point which is not annotated with the <tt>Named</tt> annotation or any other annotation type which itself is annotated with the <tt>Qualifier</tt> annotation. In the demo application, the only injection point which meets these requirements is the constructor of the <tt>Application</tt> class, so the job for rendering the hello-world message gets injected only there. All other injection points are qualified, e.g. the constructor of the <tt>BanneredPrinter</tt> class qualifies its injection points for the header and footer jobs with a <tt>@Named(&quot;header&quot;)</tt> and <tt>@Named(&quot;footer&quot;)</tt> annotation. Thus, in the job module, these injections points get respectively bound to <tt>Messages.beginPrint.job()</tt> and <tt>Messages.endPrint.job()</tt>.</p>
+<p>The printer module binds any unqualified injection point for the <tt>Printer</tt> type to a <tt>BanneredPrinter</tt>. By using <tt>to(...)</tt> instead of <tt>toInstance(...)</tt>, a new bannered printer will be created whenever a printer needs to get injected. A bannered printer is a decorator, so it has another printer as a transitive dependency. In order to enable disambiguation, the injection point for the printer has been annotated with <tt>@Context(BanneredPrinter.class)</tt>. The module configuration uses this disambiguation to bind the injected printer to a <tt>CheckedPrinter</tt>. In turn, this class has another transitive dependency which is qualified with <tt>@Context(CheckedPrinter.class)</tt>, for which a <tt>StandardPrinter</tt> gets bound. Finally, the qualified print stream dependency in the checked printer gets bound to the instance <tt>out</tt>, which is a reference to <tt>System.out</tt>.</p>
+<div class="section">
+<h5>Comparison To Manual Dependency Injection<a name="Comparison_To_Manual_Dependency_Injection"></a></h5>
+<p>You may ask yourself if all this fuss is really required. Certainly programmers have been applying SOLID design principles successfully before dependency injection frameworks have even existed, haven&#x2019;t they?</p>
+<p>To give you an idea of what Guice is doing for you behind the curtains let me rewrite the <tt>Bootstrap</tt> class as if I wouldn&#x2019;t be using Guice, but wanted to have the same bindings available at runtime. In order to do so, I need to write a method for every possible production of the configured bindings. I am going to prefix these with <tt>$</tt> so you can easily identify them:</p>
+
+<div class="source">
+<pre>@Immutable
+public final class Bootstrap implements Callable&lt;Void&gt; {
+
+    private final Printer.Job $beginPrintJob = Messages.beginPrint.job();
+    private final Printer.Job $helloWorldJob = Messages.helloWorld.job();
+    private final Printer.Job $endPrintJob = Messages.endPrint.job();
+
+    public static void main(String[] args) throws Exception {
+        new Bootstrap().call();
+    }
+
+    @Override public Void call() throws Exception {
+        return $application().call();
+    }
+
+    Application $application() {
+        return new Application($printer(), $printerJobProvider());
+    }
+
+    Printer $printer() {
+        return new BanneredPrinter($printerForBanneredPrinter(),
+                $printerJobNamedHeader(), $printerJobNamedFooter());
+    }
+
+    Printer $printerForBanneredPrinter() {
+        return new CheckedPrinter($printerForCheckedPrinter());
+    }
+
+    Printer $printerForCheckedPrinter() {
+        return new StandardPrinter($printStreamForStandardPrinter());
+    }
+
+    PrintStream $printStreamForStandardPrinter() { return System.out; }
+
+    Provider&lt;Printer.Job&gt; $printerJobProvider() {
+        return new Provider&lt;Printer.Job&gt;() {
+            @Override public Printer.Job get() { return $printerJob(); }
+        };
+    }
+
+    Printer.Job $printerJob() { return $helloWorldJob; }
+
+    Printer.Job $printerJobNamedHeader() { return $beginPrintJob; }
+
+    Printer.Job $printerJobNamedFooter() { return $endPrintJob; }
+}
+</pre></div>
+<p>At first sight, there isn&#x2019;t a big difference in terms of code size or complexity. However, note that Guice automatically reuses the productions wherever they fit - no code writing required. In addition, Guice manages scopes and provides AOP for cross-cutting concerns, e.g. logging. When combined, these are very powerful tools and reduce a lot of boilerplate code and complexity. Unfortunately, discussing these advanced features is beyond the scope of this article.</p></div></div></div>
+<div class="section">
+<h3>Bonus Branch<a name="Bonus_Branch"></a></h3>
+<p>If you have been reading until here, then I have a bonus for you: The <a class="externalLink" href="http://github.com/christian-schlichtherle/guice-demo">source code repository</a> for this project contains multiple branches. One of them is named <tt>guicer</tt>. This branch uses <a class="externalLink" href="https://guicer.java.net">Guicer</a>, an alternative Domain Specific Language (DSL) for configuring a Guice Injector which is simpler and more concise than the original Guice DSL. For more information about Guicer, please visit its homepage at <a class="externalLink" href="https://guicer.java.net">https://guicer.java.net</a>.</p></div></div>
+              </div>
+    </div>
+    <div class="clear"><hr/></div>
+    <div id="footer">
+      <div class="xright">
+              Copyright &#169;                    2013
+                        <a href="http://schlichtherle.de">Schlichtherle IT Services</a>.
+            All Rights Reserved.      
+                                   <span id="publishDate">Last Published: 2013-06-19</span>
+                        </div>
+      <div class="clear"><hr/></div>
+    </div>
+  </body>
+</html>
