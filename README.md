@@ -1,8 +1,8 @@
 # Guice Demo
 
-This standalone project demonstrates how to setup and run a Guice Injector for
-printing a localized time-of-the-day message to some output stream, together
-with some decorations to set the message apart from others.
+This standalone project demonstrates how to setup and run a [Guice] `Injector`
+for printing a localized time-of-the-day message to some output stream,
+together with some decorations to set the message apart from others.
 
 The project provides interfaces and implementations for printers and jobs.
 Some implementations are decorators for printers which separate the content
@@ -35,7 +35,7 @@ For the UK, the output should be similar to this:
     ----------  END PRINT  ----------
 
 You may notice that this message is similar to the messages of BT's popular
-[Speaking Clock](http://en.wikipedia.org/wiki/Speaking_clock).
+[Speaking Clock].
 
 You can set different combinations of countries and languages,
 e.g. the following command:
@@ -59,5 +59,8 @@ if you do, so that I can add it to the code base. I am looking forward to it.
 
 ## License
 
-This demo project is covered by the
-[Eclipse Software License, Version 1.0](http://www.eclipse.org/legal/epl-v10.html).
+This project is covered by the [Eclipse Software License, Version 1.0][ESL-1.0].
+
+[Guice]: http://code.google.com/p/google-guice/
+[Speaking Clock]: http://en.wikipedia.org/wiki/Speaking_clock
+[ESL-1.0]: http://www.eclipse.org/legal/epl-v10.html
