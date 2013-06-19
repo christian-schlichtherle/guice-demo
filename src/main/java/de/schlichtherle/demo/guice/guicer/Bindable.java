@@ -20,7 +20,7 @@ extends Annotatable<This> {
     Class<Type> type;
 
     @SuppressWarnings("unchecked")
-    final This bind(final Class<Type> type) {
+    This bind(final Class<Type> type) {
         this.type = type;
         return (This) this;
     }

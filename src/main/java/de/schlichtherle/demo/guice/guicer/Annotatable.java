@@ -22,7 +22,7 @@ public abstract class Annotatable<This extends Annotatable<This>> {
     Annotatable() { }
 
     @SuppressWarnings("unchecked")
-    public final This annotatedWith(final Annotation annotation) {
+    public This annotatedWith(final Annotation annotation) {
         this.annotation = annotation;
         return (This) this;
     }

@@ -12,6 +12,6 @@ import com.google.inject.Injector;
  *
  * @author Christian Schlichtherle
  */
-public final class GuiceContext {
-    public InjectorBuilder injector() { return new InjectorBuilder(); }
+public class GuiceContext {
+    public final InjectorBuilder injector() { return new InjectorBuilder(); }
 }

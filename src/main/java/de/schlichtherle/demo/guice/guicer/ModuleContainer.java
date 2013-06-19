@@ -24,12 +24,12 @@ public abstract class ModuleContainer<This extends ModuleContainer<This>> {
     static <T> List<T> emptyList() { return new LinkedList<T>(); }
 
     @SuppressWarnings("ReturnOfCollectionOrArrayField")
-    final List<Module> swapModules() {
+    List<Module> swapModules() {
         try { return this.modules; }
         finally { this.modules = emptyList(); }
     }
 
-    public final ModuleBuilder<This> module() {
+    public ModuleBuilder<This> module() {
         return new ModuleBuilder<This>() {
             @Override public This inject() {
                 return ModuleContainer.this.module(build());
@@ -38,7 +38,7 @@ public abstract class ModuleContainer<This extends ModuleContainer<This>> {
     }
 
     @SuppressWarnings("unchecked")
-    public final This module(final Module module) {
+    public This module(final Module module) {
         modules.add(module);
         return (This) this;
     }

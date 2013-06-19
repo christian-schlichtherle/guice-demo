@@ -7,7 +7,7 @@ package de.schlichtherle.demo.guice.guicer;
 import com.google.inject.*;
 
 /**
- * A declaration of a binding for a type for use in any {@link Module}.
+ * A declaration of a binding for a type in a {@link Module}.
  *
  * @param  <Type> The type of the bindable type.
  * @param  <Parent> the type of the parent scope.
@@ -21,12 +21,12 @@ implements Injection<Parent> {
     Class<? extends Type> implementation;
     Type instance;
 
-    public final TypeBinding<Type, Parent> to(final Class<? extends Type> implementation) {
+    public TypeBinding<Type, Parent> to(final Class<? extends Type> implementation) {
         this.implementation = implementation;
         return this;
     }
 
-    public final TypeBinding<Type, Parent> toInstance(final Type instance) {
+    public TypeBinding<Type, Parent> toInstance(final Type instance) {
         this.instance = instance;
         return this;
     }

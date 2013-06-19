@@ -21,7 +21,7 @@ implements Injection<Parent> {
 
     Type instance;
 
-    public final ConstantBinding<Type, Parent> to(final Type instance) {
+    public ConstantBinding<Type, Parent> to(final Type instance) {
         this.instance = instance;
         return this;
     }

@@ -11,7 +11,7 @@ import com.google.inject.*;
  *
  * @author Christian Schlichtherle
  */
-public final class InjectorBuilder
+public class InjectorBuilder
 extends ModuleContainer<InjectorBuilder>
 implements Builder<Injector> {
     @Override public Injector build() {
