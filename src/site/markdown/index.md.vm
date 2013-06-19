@@ -661,12 +661,14 @@ $h2 Bonus Branch
 If you have been reading until here, then I have a bonus for you:
 The [source code repository] for this project contains multiple branches.
 One of them is named `guicer`.
-This branch contains an alternative Domain Specific Language (DSL) for
-configuring a Guice Injector which is much simpler to use than the original
-Guice DSL.
-If you're interested, check the [documentation page](./guicer.html).
+This branch uses [Guicer], an alternative Domain Specific Language (DSL) for
+configuring a Guice Injector which is simpler and more concise than the
+original Guice DSL.
+For more information about Guicer, please visit its homepage at
+<https://guicer.java.net>.
 
 [Guice]: http://code.google.com/p/google-guice/
+[Guicer]: https://guicer.java.net
 [Source Code Repository]: http://github.com/christian-schlichtherle/guice-demo
 [Speaking Clock]: http://en.wikipedia.org/wiki/Speaking_clock
 [SOLID]: http://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
