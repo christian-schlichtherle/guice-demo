@@ -10,6 +10,13 @@ produced by print jobs and do some error checking.
 When bootstrapping, a Guice injector is configured which wires a print job
 for announcing the localized time-of-the-day message to a decorated printer.
 
+## Documentation
+
+The documentation for this Guice demo is available at
+<http://christian-schlichtherle.github.io/guice-demo/>.
+This page also contains information about how to contact the project
+author / team.
+
 ## Building
 
 You need Java SE 6 and Apache Maven 3.0.4 or higher installed.
