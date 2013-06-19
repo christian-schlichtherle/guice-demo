@@ -6,7 +6,6 @@ package de.schlichtherle.demo.guice;
 
 import com.google.inject.*;
 import static com.google.inject.name.Names.named;
-import de.schlichtherle.demo.guice.guicer.GuiceContext;
 import static de.schlichtherle.demo.guice.inject.Contexts.context;
 import de.schlichtherle.demo.guice.job.BufferedJob;
 import de.schlichtherle.demo.guice.printer.*;
@@ -15,6 +14,7 @@ import java.util.*;
 import java.util.concurrent.Callable;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.Named;
+import net.java.guicer.GuiceContext;
 
 /**
  * Provides a {@link #main} method to configure Google Juice and start the
