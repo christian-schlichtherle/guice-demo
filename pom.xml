@@ -39,7 +39,7 @@
             <name>Guice Demo Website</name>
             <!-- DON'T use ${project.groupId}, ${project.artifactId} here.
                  This would change in sub-modules! -->
-            <url>file://${env.HOME}/sites/net.java.guice-demo/</url>
+            <url>file://${env.HOME}/sites/com.github.guice-demo/</url>
         </site>
     </distributionManagement>
 
