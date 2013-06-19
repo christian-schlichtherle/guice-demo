@@ -33,6 +33,16 @@
         <tag>HEAD</tag>
     </scm>
 
+    <distributionManagement>
+        <site>
+            <id>guice-demo-website</id>
+            <name>Guice Demo Website</name>
+            <!-- DON'T use ${project.groupId}, ${project.artifactId} here.
+                 This would change in sub-modules! -->
+            <url>file://${env.HOME}/sites/net.java.guice-demo/</url>
+        </site>
+    </distributionManagement>
+
     <properties>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
