@@ -8,6 +8,6 @@ package de.schlichtherle.demo.guice.guicer;
  *
  * @author Christian Schlichtherle
  */
-public interface Installable<Target> {
+interface Installable<Target> {
     void installTo(Target binder);
 }
