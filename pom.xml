@@ -28,6 +28,10 @@
             <distribution>manual</distribution>
         </license>
     </licenses>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/christian-schlichtherle/guice-demo/issues</url>
+    </issueManagement>
     <scm>
         <developerConnection>scm:git:git@github.com:christian-schlichtherle/guice-demo.git</developerConnection>
         <url>https://github.com/christian-schlichtherle/guice-demo</url>
