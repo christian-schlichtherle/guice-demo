@@ -13,7 +13,7 @@ for announcing the localized time-of-the-day message to a decorated printer.
 ## Documentation
 
 The documentation for this Guice demo is available at
-<http://christian-schlichtherle.github.io/guice-demo/>.
+<https://christian-schlichtherle.github.io/guice-demo/>.
 This page also contains information about how to contact the project
 author / team.
 
